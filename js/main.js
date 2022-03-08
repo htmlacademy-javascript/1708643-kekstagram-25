@@ -66,23 +66,43 @@ const NAMES = [
   'Тихон',
 ];
 
-const COMMENTS = function () {
+let uniquePhotoId = [];
+let uniqueCommentsId = [];
+let uniquePictureUrl = [];
+const getUniqueNum = function (min, max, array) {
+  const uniqueNum = getRandomInt(min, max);
+  if ( array.length < (max - min + 1) ) {
+    if (array.includes(uniqueNum)) {
+      array = getUniqueNum(min, max, array);
+    } else {
+      array.push(uniqueNum);
+    }
+  }
+  return array;
+};
+
+const comments = function () {
+  uniqueCommentsId = getUniqueNum(1,25,uniqueCommentsId);
   return {
-    id: getRandomInt(1, 25),
+    id: uniqueCommentsId.at(-1),
     avatar: `img/avatar-${  getRandomInt(1, 6)  }.svg`,
     message: PHOTO_MESSAGE(),
     name: getRandomArrayElement(NAMES),
   };
 };
-const commentsArray = Array.from({length: 14}, COMMENTS);
+const commentsArray = Array.from({length: 14}, comments);
 
-const createPhoto = () => ({
-  id: getRandomInt(1, 25),
-  url: `photos/${  getRandomInt(1, 25)  }.jpg`,
-  description: getRandomArrayElement(DESCRIPTION),
-  likes: getRandomInt(15, 200),
-  comments: getRandomArrayElement(commentsArray),
-});
+const createPhoto = function () {
+  uniquePhotoId = getUniqueNum(1,25,uniquePhotoId);
+  uniquePictureUrl = getUniqueNum(1,25,uniquePictureUrl);
+  return {
+    id: uniquePhotoId.at(-1),
+    url: `photos/${  uniquePictureUrl.at(-1)  }.jpg`,
+    description: getRandomArrayElement(DESCRIPTION),
+    likes: getRandomInt(15, 200),
+    comments: getRandomArrayElement(commentsArray),
+  };
+};
 const arrayPhoto = Array.from({length: PHOTO_COUNT}, createPhoto);
 
-console.log(arrayPhoto);
+//console.log(arrayPhoto);
