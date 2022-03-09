@@ -45,13 +45,19 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const MESSAGE_COUNT = getRandomInt(1, 2);
+const MIN_MESSAGE_COUNT = 1;
+const MAX_MESSAGE_COUNT = 2;
+const messageCount = getRandomInt(MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT);
 
-const PHOTO_MESSAGE = function () {
-  if (MESSAGE_COUNT === 2) {
-    return `${getRandomArrayElement(MESSAGE)  } ${  getRandomArrayElement(MESSAGE)}`;
+const getPhotoMessage = function () {
+  let arrayMessage = '';
+  if (MIN_MESSAGE_COUNT === 0 && MAX_MESSAGE_COUNT === 0) {
+    return '';
   }
-  return getRandomArrayElement(MESSAGE);
+  for (let i = 0; i <= messageCount; i++) {
+    arrayMessage += `${getRandomArrayElement(MESSAGE)  } `;
+  }
+  return arrayMessage.trimEnd();
 };
 
 const NAMES = [
@@ -86,7 +92,7 @@ const comments = function () {
   return {
     id: uniqueCommentsId.at(-1),
     avatar: `img/avatar-${  getRandomInt(1, 6)  }.svg`,
-    message: PHOTO_MESSAGE(),
+    message: getPhotoMessage(),
     name: getRandomArrayElement(NAMES),
   };
 };
