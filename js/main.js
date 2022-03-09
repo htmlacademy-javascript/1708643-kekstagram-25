@@ -54,7 +54,7 @@ const getPhotoMessage = function () {
   if (MIN_MESSAGE_COUNT === 0 && MAX_MESSAGE_COUNT === 0) {
     return '';
   }
-  for (let i = MIN_MESSAGE_COUNT; i <= messageCount; i++) {
+  for (let i = 0; i <= messageCount; i++) {
     arrayMessage += `${getRandomArrayElement(MESSAGE)  } `;
   }
   return arrayMessage.trimEnd();
