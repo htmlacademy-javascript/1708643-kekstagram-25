@@ -16,7 +16,7 @@ const createPhoto = function () {
     comments: getRandomArrayElement(commentsArray),
   };
 };
-// eslint-disable-next-line no-unused-vars
+
 const arrayPhoto = Array.from({length: PHOTO_COUNT}, createPhoto);
 
 export {arrayPhoto};
