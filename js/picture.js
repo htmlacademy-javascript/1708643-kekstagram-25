@@ -15,7 +15,7 @@ const createPicture = (photoData) => {
 const createPictures = (photoArray) => {
   const fragment = document.createDocumentFragment();
   photoArray.forEach((picture) => fragment.appendChild(createPicture(picture)));
-  pictureContainer.appendChild(fragment);
+  return pictureContainer.appendChild(fragment);
 };
 
 const createPicturesArray = createPictures(arrayPhoto);
