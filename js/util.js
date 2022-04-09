@@ -1,4 +1,4 @@
-import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT} from './data';
+import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT} from './data.js';
 
 // имя_функции(от, до);  // Результат: целое число из диапазона "от...до"
 const getRandomInt = (min, max) => {
