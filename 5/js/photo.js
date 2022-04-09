@@ -1,6 +1,6 @@
 import {getUniqueNum, getRandomInt, getRandomArrayElement} from './util.js';
-import {PHOTO_COUNT, DESCRIPTION} from './data';
-import {commentsArray} from './message';
+import {PHOTO_COUNT, DESCRIPTION} from './data.js';
+import {commentsArray} from './message.js';
 
 let uniquePhotoId = [];
 let uniquePictureUrl = [];
@@ -13,7 +13,7 @@ const createPhoto = function () {
     url: `photos/${  uniquePictureUrl.at(-1)  }.jpg`,
     description: getRandomArrayElement(DESCRIPTION),
     likes: getRandomInt(15, 200),
-    comments: getRandomArrayElement(commentsArray),
+    comments: commentsArray,
   };
 };
 
