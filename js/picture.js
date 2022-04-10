@@ -20,7 +20,4 @@ const createPictures = (photoArray) => {
 
 const createPicturesArray = createPictures(arrayPhoto);
 
-/* eslint-disable no-console */
-console.log(createPicturesArray);
-
 export {createPictures, createPicturesArray};
