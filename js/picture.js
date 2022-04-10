@@ -20,4 +20,4 @@ const createPictures = (photoArray) => {
 
 const createPicturesArray = createPictures(arrayPhoto);
 
-export {createPictures, createPicturesArray};
+export {pictureContainer, createPicture, createPictures, createPicturesArray};

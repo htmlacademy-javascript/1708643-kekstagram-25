@@ -1,18 +1,7 @@
 import {openPictureModal} from './big-picture.js';
 import {isEnterEvent} from './util.js';
-
-const pictureContainer = document.querySelector('.pictures');
-const pictureTemplateBlock = document.querySelector('#picture');
-const pictureTemplate = pictureTemplateBlock.content.querySelector('a.picture');
-
-const createPicture = (photoData) => {
-  const picture = pictureTemplate.cloneNode(true);
-  picture.dataset.photoId = photoData.id;
-  picture.querySelector('.picture__img').src = photoData.url;
-  picture.querySelector('.picture__comments').innerText = photoData.comments.length;
-  picture.querySelector('.picture__likes').innerText = photoData.likes;
-  return picture;
-};
+import {createPicture, pictureContainer} from './picture.js';
+import {arrayPhoto} from './photo.js';
 
 const clearPictures = () => {
   const pictures = pictureContainer.querySelectorAll('.picture');
@@ -46,5 +35,8 @@ const renderPictures = (photosData) => {
   pictureContainer.appendChild(fragment);
   setPicturesViewed();
 };
+// const picturesGallery = renderPictures(arrayPhoto);
+// console.log(picturesGallery);
+renderPictures(arrayPhoto);
 
 export {renderPictures};
