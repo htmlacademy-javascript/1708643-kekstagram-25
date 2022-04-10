@@ -1,5 +1,7 @@
 import {isEscEvent} from './util.js';
 import {arrayPhoto} from './photo.js';
+//import {createPicturesArray} from './picture.js';
+
 
 const bigPictureBlock = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureBlock.querySelector('.big-picture__img img');
