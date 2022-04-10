@@ -1,8 +1,5 @@
 import {isEscEvent} from './util.js';
 import {arrayPhoto} from './photo.js';
-//import {createPicturesArray} from './picture.js';
-console.log(arrayPhoto);
-
 
 const bigPictureBlock = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureBlock.querySelector('.big-picture__img img');
@@ -62,11 +59,29 @@ const createPictureModalData = (pictureData) => {
   bigPictureLikes.textContent = pictureData.likes;
   bigPictureDescription.textContent = pictureData.description;
   bigPictureCommentsCount.textContent = pictureData.comments;
-  createComments(pictureData);
+  createComments();
 };
 
-const openPictureModal = () => {
-  createPictureModalData(arrayPhoto);
+const getPhotoId = (evt) => {
+  const target = evt.target;
+  if (target.dataset.photoId !== undefined) {
+    return target.dataset.photoId;
+  } else {
+    const parentTarget = target.parentNode;
+    return parentTarget.dataset.photoId;
+  }
+};
+
+const getPhotoDataById = (photoId) => {
+  const photosData = arrayPhoto;
+  return photosData.find((element) => element.id === photoId);
+};
+
+const openPictureModal = (evt) => {
+  const photoId = getPhotoId(evt);
+  console.log(photoId);
+  const pictureData = getPhotoDataById(photoId);
+  createPictureModalData(pictureData);
 
   bigPictureBlock.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -76,5 +91,6 @@ const openPictureModal = () => {
   bigPictureCancel.addEventListener('click', closePictureModal);
   document.addEventListener('keydown', onPictureModalEscPress);
 };
+
 
 export {openPictureModal, closePictureModal};
