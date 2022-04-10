@@ -92,5 +92,4 @@ const openPictureModal = (evt) => {
   document.addEventListener('keydown', onPictureModalEscPress);
 };
 
-
 export {openPictureModal, closePictureModal};

@@ -35,8 +35,7 @@ const renderPictures = (photosData) => {
   pictureContainer.appendChild(fragment);
   setPicturesViewed();
 };
-// const picturesGallery = renderPictures(arrayPhoto);
-// console.log(picturesGallery);
+
 renderPictures(arrayPhoto);
 
 export {renderPictures};
