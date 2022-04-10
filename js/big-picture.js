@@ -59,7 +59,7 @@ const createPictureModalData = (pictureData) => {
   bigPictureLikes.textContent = pictureData.likes;
   bigPictureDescription.textContent = pictureData.description;
   bigPictureCommentsCount.textContent = pictureData.comments;
-  createComments();
+  createComments(pictureData.comments);
 };
 
 const getPhotoId = (evt) => {
@@ -75,7 +75,6 @@ const getPhotoId = (evt) => {
 const getPhotoDataById = (photoId) => {
   const photosData = arrayPhoto;
   const photoDataById = photosData.find((element) => element.id === Number(photoId));
-  console.log(photoDataById);
   return photoDataById;
 };
 
