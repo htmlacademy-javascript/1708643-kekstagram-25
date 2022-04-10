@@ -74,12 +74,13 @@ const getPhotoId = (evt) => {
 
 const getPhotoDataById = (photoId) => {
   const photosData = arrayPhoto;
-  return photosData.find((element) => element.id === photoId);
+  const photoDataById = photosData.find((element) => element.id === Number(photoId));
+  console.log(photoDataById);
+  return photoDataById;
 };
 
 const openPictureModal = (evt) => {
   const photoId = getPhotoId(evt);
-  console.log(photoId);
   const pictureData = getPhotoDataById(photoId);
   createPictureModalData(pictureData);
 
