@@ -59,28 +59,11 @@ const createPictureModalData = (pictureData) => {
   bigPictureLikes.textContent = pictureData.likes;
   bigPictureDescription.textContent = pictureData.description;
   bigPictureCommentsCount.textContent = pictureData.comments;
-  createComments();
+  createComments(pictureData);
 };
 
-const getPhotoId = (evt) => {
-  const target = evt.target;
-  if (target.dataset.photoId !== undefined) {
-    return target.dataset.photoId;
-  } else {
-    const parentTarget = target.parentNode;
-    return parentTarget.dataset.photoId;
-  }
-};
-
-const getPhotoDataById = (photoId) => {
-  const photosData = arrayPhoto;
-  return photosData.find((element) => element.id === photoId);
-};
-
-const openPictureModal = (evt) => {
-  const photoId = getPhotoId(evt);
-  const pictureData = getPhotoDataById(photoId);
-  createPictureModalData(pictureData);
+const openPictureModal = () => {
+  createPictureModalData(arrayPhoto);
 
   bigPictureBlock.classList.remove('hidden');
   body.classList.add('modal-open');
