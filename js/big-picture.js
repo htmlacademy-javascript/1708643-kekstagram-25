@@ -73,7 +73,7 @@ const getPhotoId = (evt) => {
 };
 
 const getPhotoDataById = (photoId) => {
-  const photosData = arrayPhoto();
+  const photosData = arrayPhoto;
   return photosData.find((element) => element.id === photoId);
 };
 
