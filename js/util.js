@@ -41,4 +41,8 @@ const getUniqueNum = (min, max, array) => {
   return array;
 };
 
-export {getRandomInt, getRandomArrayElement, messageCount, getUniqueNum};
+const isEscEvent = (evt) => evt.key === ('Escape' || 'Esc');
+
+const isEnterEvent = (evt) => evt.key === 'Enter';
+
+export {getRandomInt, getRandomArrayElement, messageCount, getUniqueNum, isEscEvent, isEnterEvent};
