@@ -63,7 +63,7 @@ const createPictureModalData = (pictureData) => {
 };
 
 const getPhotoId = (evt) => {
-  const target = evt.target;
+  const target = evt.target; // ключ в объекте события, на котором это событие произошло (целевой элемент)
   if (target.dataset.photoId !== undefined) {
     return target.dataset.photoId;
   } else {
