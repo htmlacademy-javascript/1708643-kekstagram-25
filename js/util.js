@@ -45,4 +45,4 @@ const isEscEvent = (evt) => evt.key === ('Escape' || 'Esc');
 
 const isEnterEvent = (evt) => evt.key === 'Enter';
 
-export {getRandomInt, getRandomArrayElement, messageCount, getUniqueNum, isEscEvent, isEnterEvent};
+export {getRandomInt, getRandomArrayElement, messageCount, getUniqueNum, isEscEvent, isEnterEvent, checkMaxStringLength};

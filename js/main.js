@@ -5,3 +5,5 @@ import './photo.js';
 import './picture.js';
 import './big-picture.js';
 import './gallery.js';
+import './form.js';
+import './preview.js';
