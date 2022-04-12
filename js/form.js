@@ -1,4 +1,4 @@
-import {checkMaxStringLength, isEscEvent} from './util.js';
+import {checkMaxStringLength} from './util.js';
 import {HASHTAGS_DELIMITER, HASHTAGS_MAX_COUNT, DESCRIPTION_MAX_LENGTH} from './data.js';
 
 const form = document.querySelector('.img-upload__form');
@@ -19,17 +19,6 @@ const isHashtag = (word) => {
   return hashtagRegex.test(word);
 };
 
-const onOpenModalEscPress = (evt) => {
-  if (isEscEvent(evt)) {
-    evt.preventDefault();
-    evt.stopPropagation();
-  }
-};
-
-const focusEscNoClose = (element) => {
-  element.addEventListener('focus', onOpenModalEscPress);
-};
-
 const onHashtagInput = (evt) => {
   const hashtags = evt.target.value.split(HASHTAGS_DELIMITER);
   const hashtagArr = hashtags.filter((elem) => Boolean(elem.length));
@@ -37,7 +26,6 @@ const onHashtagInput = (evt) => {
   const hashtagCountError = hashtagCount > HASHTAGS_MAX_COUNT;
   const hashtagError = hashtagCount && !hashtagArr.every(isHashtag);
   const hashtagUniqError = !isAllArrStrElemUniq(hashtagArr);
-  focusEscNoClose(hashtagsInput);
 
   if (hashtagCountError) {
     evt.target.setCustomValidity('нельзя указать больше пяти хэш-тегов');
@@ -52,7 +40,6 @@ const onHashtagInput = (evt) => {
 };
 
 const onDescriptionInput = (evt) => {
-  focusEscNoClose(descriptionInput);
   if (!checkMaxStringLength(evt.target.value, DESCRIPTION_MAX_LENGTH)) {
     evt.target.setCustomValidity('комментарий не может быть больше 140 символов');
   } else {

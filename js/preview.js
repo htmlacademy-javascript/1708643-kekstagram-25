@@ -7,16 +7,20 @@ const body = document.body;
 const modalCloseButton = document.querySelector('#upload-cancel');
 const hideClass = 'hidden';
 
-const onModalCloseButtonClick = () => {
+const closeUploadFileModal = () => {
   imgUploadOverlay.classList.add(hideClass);
   body.classList.remove('modal-open');
 
-  modalCloseButton.removeEventListener('click', onModalCloseButtonClick);
+  hashtagsInput.value = '';
+  descriptionInput.value = '';
 
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
+};
 
-  fileInput.value = '';
+const onModalCloseButtonClick = () => {
+  closeUploadFileModal();
+  modalCloseButton.removeEventListener('click', onModalCloseButtonClick);
 };
 
 const onUploadModalEscPress = (evt) => {
@@ -25,8 +29,8 @@ const onUploadModalEscPress = (evt) => {
     const isDescriptionInputNotFocus = descriptionInput !== document.activeElement;
     evt.preventDefault();
     if (isHashtagsInputNotFocus && isDescriptionInputNotFocus) {
-      document.addEventListener('click', onModalCloseButtonClick);
-      document.removeEventListener('keydown', onUploadModalEscPress);
+      closeUploadFileModal();
+      document.addEventListener('keydown', onUploadModalEscPress);
     }
   }
 };
