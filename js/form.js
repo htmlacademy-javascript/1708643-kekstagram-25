@@ -61,10 +61,6 @@ const onDescriptionInput = (evt) => {
   evt.target.reportValidity();
 };
 
-hashtagsInput.addEventListener('input', onHashtagInput);
-
-descriptionInput.addEventListener('input', onDescriptionInput);
-
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.validate();

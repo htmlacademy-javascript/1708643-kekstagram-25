@@ -25,7 +25,7 @@ const onUploadModalEscPress = (evt) => {
     const isDescriptionInputNotFocus = descriptionInput !== document.activeElement;
     evt.preventDefault();
     if (isHashtagsInputNotFocus && isDescriptionInputNotFocus) {
-      onModalCloseButtonClick();
+      document.addEventListener('click', onModalCloseButtonClick);
       document.removeEventListener('keydown', onUploadModalEscPress);
     }
   }
@@ -34,6 +34,9 @@ const onUploadModalEscPress = (evt) => {
 const onFileInputChange = () => {
   imgUploadOverlay.classList.remove(hideClass);
   body.classList.add('modal-open');
+
+  hashtagsInput.addEventListener('input', onHashtagInput);
+  descriptionInput.addEventListener('input', onDescriptionInput);
 
   document.addEventListener('keydown', onUploadModalEscPress);
   modalCloseButton.addEventListener('click', onModalCloseButtonClick);
