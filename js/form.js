@@ -1,6 +1,5 @@
 import {checkMaxStringLength, isEscEvent} from './util.js';
 import {HASHTAGS_DELIMITER, HASHTAGS_MAX_COUNT, DESCRIPTION_MAX_LENGTH} from './data.js';
-// import {closeUploadModal} from './preview';
 
 const form = document.querySelector('.img-upload__form');
 
@@ -61,6 +60,10 @@ const onDescriptionInput = (evt) => {
   }
   evt.target.reportValidity();
 };
+
+hashtagsInput.addEventListener('input', onHashtagInput);
+
+descriptionInput.addEventListener('input', onDescriptionInput);
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
