@@ -3,15 +3,15 @@ import {descriptionInput, hashtagsInput, onDescriptionInput, onHashtagInput} fro
 
 const fileInput = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
-const body = document.querySelector('body');
+const body = document.body;
 const modalCloseButton = document.querySelector('#upload-cancel');
 const hideClass = 'hidden';
 
-const closeUploadModal = () => {
+const onModalCloseButtonClick = () => {
   imgUploadOverlay.classList.add(hideClass);
   body.classList.remove('modal-open');
 
-  modalCloseButton.removeEventListener('click', closeUploadModal);
+  modalCloseButton.removeEventListener('click', onModalCloseButtonClick);
 
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
@@ -25,24 +25,24 @@ const onUploadModalEscPress = (evt) => {
     const isDescriptionInputNotFocus = descriptionInput !== document.activeElement;
     evt.preventDefault();
     if (isHashtagsInputNotFocus && isDescriptionInputNotFocus) {
-      closeUploadModal();
+      onModalCloseButtonClick();
       document.removeEventListener('keydown', onUploadModalEscPress);
     }
   }
 };
 
-const openUploadModal = () => {
+const onFileInputChange = () => {
   imgUploadOverlay.classList.remove(hideClass);
   body.classList.add('modal-open');
 
   document.addEventListener('keydown', onUploadModalEscPress);
-  modalCloseButton.addEventListener('click', closeUploadModal);
+  modalCloseButton.addEventListener('click', onModalCloseButtonClick);
 };
 
 const openUploadFile = () => {
-  fileInput.addEventListener('click', openUploadModal);
+  fileInput.addEventListener('change', onFileInputChange);
 };
 
 openUploadFile();
 
-export {closeUploadModal};
+export {onModalCloseButtonClick};
