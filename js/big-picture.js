@@ -41,17 +41,18 @@ const createComments = (commentsData) => {
   bigPictureCommentsBlock.appendChild(fragment);
 };
 
-
 let photoCommentsData = {};
-photoCommentsData = arrayPhoto.comments;
 let photoShowStep = 1;
 
-const onCommentShowMore = () => {
+const onCommentShowMore = (commentsData) => {
   const photoShowFrom = photoShowStep * COMMENTS_TO_SHOW_COUNT;
   photoShowStep++;
   const photoShowTo = photoShowStep * COMMENTS_TO_SHOW_COUNT;
 
   bigPictureCommentShowCount.textContent = photoShowTo;
+
+  photoCommentsData = createComments(commentsData);
+  console.log(photoCommentsData);
 
   const commentDataBlock = photoCommentsData.slice(photoShowFrom, photoShowTo);
   createComments(commentDataBlock);
@@ -65,13 +66,13 @@ const onCommentShowMore = () => {
   }
 };
 
-const showComments = () => {
+const showComments = (commentsData) => {
   const commentsCount = photoCommentsData.length;
   bigPictureCommentsCount.textContent = commentsCount;
   bigPictureCommentsBlock.innerHTML = '';
 
   photoShowStep = 0;
-  onCommentShowMore();
+  onCommentShowMore(commentsData);
 
   if (commentsCount <= COMMENTS_TO_SHOW_COUNT) {
     if (!bigPictureCommentsLoader.classList.contains('hidden')) {
@@ -90,13 +91,18 @@ const closePictureModal = () => {
   body.classList.remove('modal-open');
   bigPictureCommentsLoader.classList.remove('hidden');
   bigPictureSocialCommentsCount.classList.remove('hidden');
-  bigPictureCancel.removeEventListener('click', closePictureModal);
+};
+
+const onModalCancelButtonClick = () => {
+  closePictureModal();
+  bigPictureCancel.removeEventListener('click', onModalCancelButtonClick);
 };
 
 const onPictureModalEscPress = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     closePictureModal();
+    document.removeEventListener('keydown', onPictureModalEscPress);
   }
 };
 
@@ -105,8 +111,8 @@ const createPictureModalData = (pictureData) => {
   bigPictureLikes.textContent = pictureData.likes;
   bigPictureDescription.textContent = pictureData.description;
   bigPictureCommentsCount.textContent = pictureData.comments;
-  createComments(pictureData.comments);
-  //showComments();
+  // createComments(pictureData.comments);
+  showComments(pictureData.comments);
 };
 
 const getPhotoId = (evt) => {
@@ -135,8 +141,8 @@ const openPictureModal = (evt) => {
   bigPictureCommentsLoader.classList.add('hidden');
   bigPictureSocialCommentsCount.classList.add('hidden');
 
-  bigPictureCancel.addEventListener('click', closePictureModal);
+  bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
   document.addEventListener('keydown', onPictureModalEscPress);
 };
 
-export {openPictureModal, closePictureModal};
+export {openPictureModal, onModalCancelButtonClick};

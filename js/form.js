@@ -48,11 +48,6 @@ const onDescriptionInput = (evt) => {
   evt.target.reportValidity();
 };
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
-
 export {
   hashtagsInput,
   descriptionInput,
