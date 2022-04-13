@@ -3,8 +3,6 @@ import {HASHTAGS_DELIMITER, HASHTAGS_MAX_COUNT, DESCRIPTION_MAX_LENGTH} from './
 
 const form = document.querySelector('.img-upload__form');
 
-const pristine = new Pristine(form);
-
 const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 
@@ -47,6 +45,16 @@ const onDescriptionInput = (evt) => {
   }
   evt.target.reportValidity();
 };
+
+const validateForm = () => {
+  hashtagsInput.addEventListener('input', onHashtagInput);
+  descriptionInput.addEventListener('input', onDescriptionInput);
+};
+
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  validateForm();
+});
 
 export {
   hashtagsInput,
