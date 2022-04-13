@@ -46,16 +46,6 @@ const onDescriptionInput = (evt) => {
   evt.target.reportValidity();
 };
 
-const validateForm = () => {
-  hashtagsInput.addEventListener('input', onHashtagInput);
-  descriptionInput.addEventListener('input', onDescriptionInput);
-};
-
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  validateForm();
-});
-
 export {
   hashtagsInput,
   descriptionInput,
