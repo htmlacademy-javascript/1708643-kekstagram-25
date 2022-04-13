@@ -44,15 +44,14 @@ const createComments = (commentsData) => {
 let photoCommentsData = {};
 let photoShowStep = 1;
 
-const onCommentShowMore = (commentsData) => {
+const onCommentShowMore = () => {
   const photoShowFrom = photoShowStep * COMMENTS_TO_SHOW_COUNT;
   photoShowStep++;
   const photoShowTo = photoShowStep * COMMENTS_TO_SHOW_COUNT;
 
   bigPictureCommentShowCount.textContent = photoShowTo;
 
-  photoCommentsData = createComments(commentsData);
-  console.log(photoCommentsData);
+  //photoCommentsData = createComments();
 
   const commentDataBlock = photoCommentsData.slice(photoShowFrom, photoShowTo);
   createComments(commentDataBlock);
@@ -66,13 +65,13 @@ const onCommentShowMore = (commentsData) => {
   }
 };
 
-const showComments = (commentsData) => {
+const showComments = () => {
   const commentsCount = photoCommentsData.length;
   bigPictureCommentsCount.textContent = commentsCount;
   bigPictureCommentsBlock.innerHTML = '';
 
   photoShowStep = 0;
-  onCommentShowMore(commentsData);
+  onCommentShowMore();
 
   if (commentsCount <= COMMENTS_TO_SHOW_COUNT) {
     if (!bigPictureCommentsLoader.classList.contains('hidden')) {
