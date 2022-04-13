@@ -3,20 +3,24 @@ import {descriptionInput, hashtagsInput, onDescriptionInput, onHashtagInput} fro
 
 const fileInput = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
-const body = document.querySelector('body');
+const body = document.body;
 const modalCloseButton = document.querySelector('#upload-cancel');
 const hideClass = 'hidden';
 
-const closeUploadModal = () => {
+const closeUploadFileModal = () => {
   imgUploadOverlay.classList.add(hideClass);
   body.classList.remove('modal-open');
 
-  modalCloseButton.removeEventListener('click', closeUploadModal);
+  hashtagsInput.value = '';
+  descriptionInput.value = '';
 
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
+};
 
-  fileInput.value = '';
+const onModalCloseButtonClick = () => {
+  closeUploadFileModal();
+  modalCloseButton.removeEventListener('click', onModalCloseButtonClick);
 };
 
 const onUploadModalEscPress = (evt) => {
@@ -25,24 +29,27 @@ const onUploadModalEscPress = (evt) => {
     const isDescriptionInputNotFocus = descriptionInput !== document.activeElement;
     evt.preventDefault();
     if (isHashtagsInputNotFocus && isDescriptionInputNotFocus) {
-      closeUploadModal();
-      document.removeEventListener('keydown', onUploadModalEscPress);
+      closeUploadFileModal();
+      document.addEventListener('keydown', onUploadModalEscPress);
     }
   }
 };
 
-const openUploadModal = () => {
+const onFileInputChange = () => {
   imgUploadOverlay.classList.remove(hideClass);
   body.classList.add('modal-open');
 
+  hashtagsInput.addEventListener('input', onHashtagInput);
+  descriptionInput.addEventListener('input', onDescriptionInput);
+
   document.addEventListener('keydown', onUploadModalEscPress);
-  modalCloseButton.addEventListener('click', closeUploadModal);
+  modalCloseButton.addEventListener('click', onModalCloseButtonClick);
 };
 
 const openUploadFile = () => {
-  fileInput.addEventListener('click', openUploadModal);
+  fileInput.addEventListener('change', onFileInputChange);
 };
 
 openUploadFile();
 
-export {closeUploadModal};
+export {onModalCloseButtonClick};
