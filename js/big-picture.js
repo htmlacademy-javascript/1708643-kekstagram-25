@@ -6,7 +6,6 @@ const bigPictureBlock = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureBlock.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPictureBlock.querySelector('.likes-count');
 const bigPictureCommentsCount = bigPictureBlock.querySelector('.comments-count');
-const bigPictureCommentShowCount = bigPictureBlock.querySelector('.comments-show-count');
 const bigPictureCommentsBlock = bigPictureBlock.querySelector('.social__comments');
 const bigPictureDescription = bigPictureBlock.querySelector('.social__caption');
 const bigPictureCommentsLoader = bigPictureBlock.querySelector('.comments-loader');
@@ -35,54 +34,25 @@ const createComment = (comment) => {
   return element;
 };
 
-const createComments = (commentsData) => {
+let photoShowStep = 1;
+let pictureData = {};
+
+const createComments = () => {
   const fragment = document.createDocumentFragment();
-  commentsData.forEach((comment) => fragment.appendChild(createComment(comment)));
+  pictureData
+    .comments
+    .slice(0, photoShowStep * COMMENTS_TO_SHOW_COUNT)
+    .forEach((comment) => fragment.appendChild(createComment(comment)));
+  bigPictureCommentsBlock.innerHTML = '';
   bigPictureCommentsBlock.appendChild(fragment);
 };
 
-let photoCommentsData = {};
-let photoShowStep = 1;
-
 const onCommentShowMore = () => {
-  const photoShowFrom = photoShowStep * COMMENTS_TO_SHOW_COUNT;
   photoShowStep++;
-  const photoShowTo = photoShowStep * COMMENTS_TO_SHOW_COUNT;
-
-  bigPictureCommentShowCount.textContent = photoShowTo;
-
-  //photoCommentsData = createComments();
-
-  const commentDataBlock = photoCommentsData.slice(photoShowFrom, photoShowTo);
-  createComments(commentDataBlock);
-
-  if (photoShowTo >= photoCommentsData.length) {
-    bigPictureCommentShowCount.textContent = photoCommentsData.length;
-    bigPictureCommentsLoader.removeEventListener('click', onCommentShowMore);
-    if (!bigPictureCommentsLoader.classList.contains('hidden')) {
-      bigPictureCommentsLoader.classList.add('hidden');
-    }
+  if (photoShowStep * COMMENTS_TO_SHOW_COUNT >= pictureData.comments.length) {
+    bigPictureCommentsLoader.classList.add('hidden');
   }
-};
-
-const showComments = () => {
-  const commentsCount = photoCommentsData.length;
-  bigPictureCommentsCount.textContent = commentsCount;
-  bigPictureCommentsBlock.innerHTML = '';
-
-  photoShowStep = 0;
-  onCommentShowMore();
-
-  if (commentsCount <= COMMENTS_TO_SHOW_COUNT) {
-    if (!bigPictureCommentsLoader.classList.contains('hidden')) {
-      bigPictureCommentsLoader.classList.add('hidden');
-    }
-  } else {
-    bigPictureCommentsLoader.addEventListener('click', onCommentShowMore);
-    if (bigPictureCommentsLoader.classList.contains('hidden')) {
-      bigPictureCommentsLoader.classList.remove('hidden');
-    }
-  }
+  createComments();
 };
 
 const closePictureModal = () => {
@@ -105,13 +75,12 @@ const onPictureModalEscPress = (evt) => {
   }
 };
 
-const createPictureModalData = (pictureData) => {
+const createPictureModalData = () => {
   bigPictureImage.src = pictureData.url;
   bigPictureLikes.textContent = pictureData.likes;
   bigPictureDescription.textContent = pictureData.description;
   bigPictureCommentsCount.textContent = pictureData.comments;
-  // createComments(pictureData.comments);
-  showComments(pictureData.comments);
+  createComments(pictureData.comments);
 };
 
 const getPhotoId = (evt) => {
@@ -132,12 +101,14 @@ const getPhotoDataById = (photoId) => {
 
 const openPictureModal = (evt) => {
   const photoId = getPhotoId(evt);
-  const pictureData = getPhotoDataById(photoId);
-  createPictureModalData(pictureData);
+  pictureData = getPhotoDataById(photoId);
+  createPictureModalData();
+
+  bigPictureCommentsLoader.addEventListener('click', onCommentShowMore);
+  bigPictureCommentsLoader.classList.remove('hidden');
 
   bigPictureBlock.classList.remove('hidden');
   body.classList.add('modal-open');
-  bigPictureCommentsLoader.classList.add('hidden');
   bigPictureSocialCommentsCount.classList.add('hidden');
 
   bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
