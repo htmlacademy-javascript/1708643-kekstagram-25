@@ -12,6 +12,8 @@ const hideClass = 'hidden';
 const scaleSmaller = document.querySelector('.scale__control--smaller');
 const scaleBigger = document.querySelector('.scale__control--bigger');
 
+const effectNone = document.querySelector('#effect-none');
+
 const closeUploadFileModal = () => {
   imgUploadOverlay.classList.add(hideClass);
   body.classList.remove('modal-open');
@@ -24,6 +26,7 @@ const closeUploadFileModal = () => {
   imgPreview.style.filter = 'none';
   sliderBlockNone.style.display = 'none';
   imgPreview.classList.value = `${EFFECT_CLASS_START  }none`;
+  effectNone.addAttribute('checked');
 
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
