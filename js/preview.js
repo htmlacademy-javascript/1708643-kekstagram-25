@@ -28,9 +28,6 @@ const closeUploadFileModal = () => {
   imgPreview.classList.value = `${EFFECT_CLASS_START  }none`;
   effectNone.checked = true;
 
-  // imgPreview.src = window.URL.createObjectURL(fileInput.files[0]);
-  // imgPreview.src = imgPreview.url;
-
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
   scaleSmaller.removeEventListener('click', lowerSizeImg);
@@ -57,6 +54,8 @@ const onUploadModalEscPress = (evt) => {
 const onFileInputChange = () => {
   imgUploadOverlay.classList.remove(hideClass);
   body.classList.add('modal-open');
+
+  imgPreview.src = URL.createObjectURL(fileInput.files[0]);
 
   hashtagsInput.addEventListener('input', onHashtagInput);
   descriptionInput.addEventListener('input', onDescriptionInput);
