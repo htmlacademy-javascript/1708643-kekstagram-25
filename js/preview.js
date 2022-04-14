@@ -26,7 +26,7 @@ const closeUploadFileModal = () => {
   imgPreview.style.filter = 'none';
   sliderBlockNone.style.display = 'none';
   imgPreview.classList.value = `${EFFECT_CLASS_START  }none`;
-  effectNone.addAttribute('checked');
+  effectNone.setAttribute('checked', 'checked');
 
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
