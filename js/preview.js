@@ -1,7 +1,7 @@
 import {isEscEvent} from './util.js';
 import {descriptionInput, hashtagsInput, onDescriptionInput, onHashtagInput} from './form.js';
 import {imgPreview, scaleValue, sliderBlockNone, lowerSizeImg, incrementSizeImg} from './effect.js';
-import {CONTROL_MAX_VALUE, EFFECT_CLASS_START} from './const.js';
+import {CONTROL_MAX_VALUE, EFFECT_CLASS_START, CONTROL_DEFAULT_VALUE} from './const.js';
 
 const fileInput = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -13,6 +13,7 @@ const scaleSmaller = document.querySelector('.scale__control--smaller');
 const scaleBigger = document.querySelector('.scale__control--bigger');
 
 const effectNone = document.querySelector('#effect-none');
+const valueEffectLevel = document.querySelector('.effect-level__value');
 
 const closeUploadFileModal = () => {
   imgUploadOverlay.classList.add(hideClass);
@@ -27,6 +28,7 @@ const closeUploadFileModal = () => {
   sliderBlockNone.style.display = 'none';
   imgPreview.classList.value = `${EFFECT_CLASS_START  }none`;
   effectNone.checked = true;
+  valueEffectLevel.value = CONTROL_DEFAULT_VALUE;
 
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
