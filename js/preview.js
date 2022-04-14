@@ -28,6 +28,9 @@ const closeUploadFileModal = () => {
   imgPreview.classList.value = `${EFFECT_CLASS_START  }none`;
   effectNone.checked = true;
 
+  // imgPreview.src = window.URL.createObjectURL(fileInput.files[0]);
+  // imgPreview.src = imgPreview.url;
+
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
   scaleSmaller.removeEventListener('click', lowerSizeImg);
@@ -66,7 +69,6 @@ const onFileInputChange = () => {
 };
 
 const openUploadFile = () => {
-  imgPreview.src = window.URL.createObjectURL(fileInput.files[0]);
   fileInput.addEventListener('change', onFileInputChange);
 };
 
