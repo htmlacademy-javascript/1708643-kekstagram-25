@@ -18,10 +18,10 @@ const closeUploadFileModal = () => {
   hashtagsInput.value = '';
   descriptionInput.value = '';
 
-  // scaleValue.value = 100;
-  // imgPreview.style = '';
-  // imgPreview.style.filter = 'none';
-  // sliderBlockNone.style.display = 'none';
+  scaleValue.value = 100;
+  imgPreview.style = '';
+  imgPreview.style.filter = 'none';
+  sliderBlockNone.style.display = 'none';
 
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
