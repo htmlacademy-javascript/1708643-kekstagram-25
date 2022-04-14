@@ -1,4 +1,4 @@
-import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT} from './data.js';
+import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT} from './const.js';
 
 // имя_функции(от, до);  // Результат: целое число из диапазона "от...до"
 const getRandomInt = (min, max) => {
@@ -41,8 +41,22 @@ const getUniqueNum = (min, max, array) => {
   return array;
 };
 
+const getIntValue = (element) => {
+  const valueString = element.value;
+  return window.parseInt(valueString);
+};
+
 const isEscEvent = (evt) => evt.key === ('Escape' || 'Esc');
 
 const isEnterEvent = (evt) => evt.key === 'Enter';
 
-export {getRandomInt, getRandomArrayElement, messageCount, getUniqueNum, isEscEvent, isEnterEvent, checkMaxStringLength};
+export {
+  getRandomInt,
+  getRandomArrayElement,
+  messageCount,
+  getUniqueNum,
+  getIntValue,
+  isEscEvent,
+  isEnterEvent,
+  checkMaxStringLength
+};

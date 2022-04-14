@@ -1,6 +1,6 @@
 import {isEscEvent} from './util.js';
 import {arrayPhoto} from './photo.js';
-import {COMMENTS_TO_SHOW_COUNT} from './data.js';
+import {COMMENTS_TO_SHOW_COUNT} from './const.js';
 
 const bigPictureBlock = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureBlock.querySelector('.big-picture__img img');

@@ -1,5 +1,6 @@
 import {getRandomInt, getRandomArrayElement, messageCount, getUniqueNum} from './util.js';
-import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT, MESSAGE, NAMES} from './data.js';
+import {MESSAGE, NAMES} from './data.js';
+import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT} from './const.js';
 
 const getPhotoMessage = function () {
   let arrayMessage = '';

@@ -1,5 +1,6 @@
 import {getUniqueNum, getRandomInt, getRandomArrayElement} from './util.js';
-import {PHOTO_COUNT, DESCRIPTION} from './data.js';
+import {DESCRIPTION} from './data.js';
+import {PHOTO_COUNT} from './const.js';
 import {commentsArray} from './message.js';
 
 let uniquePhotoId = [];

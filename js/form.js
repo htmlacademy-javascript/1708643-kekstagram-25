@@ -1,5 +1,5 @@
 import {checkMaxStringLength} from './util.js';
-import {HASHTAGS_DELIMITER, HASHTAGS_MAX_COUNT, DESCRIPTION_MAX_LENGTH} from './data.js';
+import {HASHTAGS_DELIMITER, HASHTAGS_MAX_COUNT, DESCRIPTION_MAX_LENGTH} from './const.js';
 
 const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
