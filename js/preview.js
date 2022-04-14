@@ -66,6 +66,7 @@ const onFileInputChange = () => {
 };
 
 const openUploadFile = () => {
+  imgPreview.src = window.URL.createObjectURL(fileInput.files[0]);
   fileInput.addEventListener('change', onFileInputChange);
 };
 
