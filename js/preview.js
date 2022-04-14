@@ -66,10 +66,10 @@ const openUploadFile = () => {
 
 openUploadFile();
 
-const form = document.querySelector('.img-upload__form');
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  console.log(form);
-});
+// const form = document.querySelector('.img-upload__form');
+// form.addEventListener('submit', (evt) => {
+//   evt.preventDefault();
+//   console.log(form);
+// });
 
 export {onModalCloseButtonClick};
