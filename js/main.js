@@ -10,4 +10,3 @@ import './form.js';
 import './preview.js';
 import './effect.js';
 import './api.js';
-import './sort.js';
