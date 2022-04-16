@@ -57,16 +57,6 @@ const onDescriptionInput = (evt) => {
   evt.target.reportValidity();
 };
 
-const toggleSubmitButtonState = (value) => {
-  if (value === 'blockSubmitButton') {
-    uploadSubmit.disabled = true;
-    uploadSubmit.textContent = 'Публикую...';
-  } else if (value === 'unBlockSubmitButton') {
-    uploadSubmit.disabled = false;
-    uploadSubmit.textContent = 'Опубликовать';
-  }
-};
-
 const onModalEscPress = (evt, closeUploadSection) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
@@ -109,21 +99,26 @@ const showUploadErrorSection = () => {
   errorSection.addEventListener('click', closeUploadErrorSection);
 };
 
+const setSubmitButtonState = (isBlocked) => {
+  uploadSubmit.disabled = isBlocked;
+  uploadSubmit.textContent = isBlocked ? 'Публикую...' : 'Опубликовать';
+};
+
 const handleSubmit = (evt) => {
   evt.preventDefault();
-  toggleSubmitButtonState('blockSubmitButton');
+  setSubmitButtonState(true);
   const formData = new FormData(form);
 
   sendData(
     formData,
     () => {
       onModalCloseButtonClick();
-      toggleSubmitButtonState('unBlockSubmitButton');
+      setSubmitButtonState(false);
       showUploadSuccessSection();
     },
     () => {
       onModalCloseButtonClick();
-      toggleSubmitButtonState('unBlockSubmitButton');
+      setSubmitButtonState(false);
       showUploadErrorSection();
     }
   );

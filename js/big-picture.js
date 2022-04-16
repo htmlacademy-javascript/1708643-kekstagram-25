@@ -92,12 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return response.json();
       }
       throw new Error(`${response.status} ${response.statusText}`);
-    })
-    .then((arrayPhoto) => {
-      arrayPhoto;
-    })
-    .catch((error) => {
-      showAlert('Не удалось загрузить данные!');
+    // })
+    // .then((arrayPhoto) => {
+    //   arrayPhoto;
+    // })
+    // .catch((error) => {
+    //   showAlert('Не удалось загрузить данные!');
     });
 });
 
