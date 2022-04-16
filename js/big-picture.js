@@ -1,6 +1,5 @@
-import {isEscEvent, showAlert} from './util.js';
-// import {arrayPhoto} from './photo.js';
-import {COMMENTS_TO_SHOW_COUNT} from './const.js';
+import {isEscEvent, getRandomInt, showAlert, debounce} from './util.js';
+import {COMMENTS_TO_SHOW_COUNT, FILTER_CHANGE_DEBOUNCE_TIME, MAX_RANDOM_PHOTOS} from './const.js';
 import {getData} from './api.js';
 import {openUploadFile} from './preview.js';
 
@@ -18,6 +17,12 @@ const bigPictureCommentsLoader = bigPictureBlock.querySelector('.comments-loader
 const bigPictureSocialCommentsCount = bigPictureBlock.querySelector('.social__comment-count');
 const body = document.querySelector('body');
 const bigPictureCancel = bigPictureBlock.querySelector('.big-picture__cancel');
+
+const imgFilters = document.querySelector('.img-filters');
+const imgFiltersForm = document.querySelector('.img-filters__form');
+const filterDefaultButton = imgFiltersForm.querySelector('#filter-default');
+const filterRandomButton = imgFiltersForm.querySelector('#filter-random');
+const filterDiscussedButton = imgFiltersForm.querySelector('#filter-discussed');
 
 const template = document.createElement('template');
 const commentTemplateString = `
@@ -44,7 +49,6 @@ let photoShowStep = 1;
 let pictureData = {};
 
 const createComments = () => {
-
   pictureData
     .comments
     .slice(0, photoShowStep * COMMENTS_TO_SHOW_COUNT)
@@ -103,6 +107,13 @@ const createPhotoContent = (photoContent) => {
   picturesWrapper.appendChild(fragment);
 };
 
+const removePhotoContent = () => {
+  const pictures = picturesWrapper.querySelectorAll('.picture');
+  pictures.forEach((picture) => {
+    picture.remove();
+  });
+};
+
 let uploadedPhotos = {};
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -110,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     (photoContent) => {
       uploadedPhotos = photoContent;
       createPhotoContent(photoContent);
+      imgFilters.classList.remove('img-filters--inactive');
     },
     () => {
       showAlert('Не удалось загрузить данные!');
@@ -148,5 +160,66 @@ const openPictureModal = (evt) => {
   bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
   document.addEventListener('keydown', onPictureModalEscPress);
 };
+
+const showDefault = () => {
+  filterDefaultButton.classList.add('img-filters__button--active');
+  filterRandomButton.classList.remove('img-filters__button--active');
+  filterDiscussedButton.classList.remove('img-filters__button--active');
+
+  createPhotoContent(uploadedPhotos);
+};
+
+const showRandom = () => {
+  filterRandomButton.classList.add('img-filters__button--active');
+  filterDefaultButton.classList.remove('img-filters__button--active');
+  filterDiscussedButton.classList.remove('img-filters__button--active');
+
+  const randomPhotos = [];
+  const usedIndexes = [];
+
+  while(randomPhotos.length < MAX_RANDOM_PHOTOS) {
+    const index = getRandomInt(0, MAX_RANDOM_PHOTOS - 1);
+    if(!usedIndexes.includes(index)) {
+      usedIndexes.push(index);
+      randomPhotos.push(uploadedPhotos[index]);
+    }
+  }
+
+  createPhotoContent(randomPhotos);
+};
+
+const showPopular = () => {
+  filterDiscussedButton.classList.add('img-filters__button--active');
+  filterDefaultButton.classList.remove('img-filters__button--active');
+  filterRandomButton.classList.remove('img-filters__button--active');
+
+  const sortedPhotos = [...uploadedPhotos].sort((a, b) => b.comments.length - a.comments.length);
+
+  createPhotoContent(sortedPhotos);
+};
+
+const handleFilterChange = (filterName) => {
+  removePhotoContent();
+
+  if(filterName === 'filterDefaultButton') {
+    showDefault();
+  } else if (filterName === 'filterRandomButton') {
+    showRandom();
+  } else if (filterName === 'filterDiscussedButton') {
+    showPopular();
+  }
+};
+
+filterDefaultButton.addEventListener('click', debounce(() => {
+  handleFilterChange('filterDefaultButton');
+}, FILTER_CHANGE_DEBOUNCE_TIME));
+
+filterRandomButton.addEventListener('click', debounce(() => {
+  handleFilterChange('filterRandomButton');
+}, FILTER_CHANGE_DEBOUNCE_TIME));
+
+filterDiscussedButton.addEventListener('click', debounce(() => {
+  handleFilterChange('filterDiscussedButton');
+}, FILTER_CHANGE_DEBOUNCE_TIME));
 
 export {openPictureModal, onModalCancelButtonClick};
