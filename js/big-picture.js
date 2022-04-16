@@ -1,5 +1,5 @@
 import {isEscEvent, showAlert} from './util.js';
-import {arrayPhoto} from './photo.js';
+// import {arrayPhoto} from './photo.js';
 import {COMMENTS_TO_SHOW_COUNT} from './const.js';
 import {getData} from './api.js';
 import {openUploadFile} from './preview.js';
@@ -127,7 +127,7 @@ const getPhotoId = (evt) => {
 };
 
 const getPhotoDataById = (photoId) => {
-  const photosData = arrayPhoto;
+  const photosData = uploadedPhotos;
   const photoDataById = photosData.find((element) => element.id === Number(photoId));
   return photoDataById;
 };

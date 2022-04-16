@@ -1,6 +1,7 @@
 import {GET_URL, POST_URL} from './data.js';
 
-const getData = (onSuccess, onFail)  => {
+// const getData = (onSuccess, onFail)  => {
+const getData = (onSuccess)  => {
   fetch(GET_URL)
     .then((response) => {
       if (response.ok) {
@@ -11,9 +12,9 @@ const getData = (onSuccess, onFail)  => {
     })
     .then((content) => {
       onSuccess(content);
-    })
-    .catch(() => {
-      onFail();
+    // })
+    // .catch(() => {
+    //   onFail();
     });
 };
 
