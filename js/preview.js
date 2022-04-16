@@ -77,4 +77,4 @@ const openUploadFile = () => {
 
 openUploadFile();
 
-export {onModalCloseButtonClick};
+export {onModalCloseButtonClick, openUploadFile};

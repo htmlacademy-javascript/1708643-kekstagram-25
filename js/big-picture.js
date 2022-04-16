@@ -2,7 +2,12 @@ import {isEscEvent, showAlert} from './util.js';
 import {arrayPhoto} from './photo.js';
 import {COMMENTS_TO_SHOW_COUNT} from './const.js';
 import {getData} from './api.js';
+import {openUploadFile} from './preview.js';
 
+const pictureTemplate = document.querySelector('#picture').content;
+const pictureTemplateElement = pictureTemplate.querySelector('a');
+const fragment = document.createDocumentFragment();
+const picturesWrapper = document.querySelector('.pictures');
 const bigPictureBlock = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureBlock.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPictureBlock.querySelector('.likes-count');
@@ -39,7 +44,7 @@ let photoShowStep = 1;
 let pictureData = {};
 
 const createComments = () => {
-  const fragment = document.createDocumentFragment();
+
   pictureData
     .comments
     .slice(0, photoShowStep * COMMENTS_TO_SHOW_COUNT)
@@ -84,11 +89,25 @@ const createPictureModalData = () => {
   createComments(pictureData.comments);
 };
 
+const createPhotoContent = (photoContent) => {
+
+  photoContent.forEach((photo) => {
+    const templateClone = pictureTemplateElement.cloneNode(true);
+    templateClone.querySelector('.picture__img').src = photo.url;
+    templateClone.querySelector('.picture__likes').textContent = photo.likes;
+    templateClone.querySelector('.picture__comments').textContent = photo.comments.length;
+    fragment.appendChild(templateClone);
+    templateClone.addEventListener('click', () => openUploadFile(photo));
+  });
+
+  picturesWrapper.appendChild(fragment);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   getData(
     (photoContent) => {
-      let uploadedPhotos = photoContent;
-      createPictureModalData();
+      const uploadedPhotos = photoContent;
+      createPhotoContent(photoContent);
     },
     () => {
       showAlert('Не удалось загрузить данные!');
