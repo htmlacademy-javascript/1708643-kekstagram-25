@@ -1,7 +1,7 @@
 import {checkMaxStringLength, isEscEvent} from './util.js';
 import {HASHTAGS_DELIMITER, HASHTAGS_MAX_COUNT, DESCRIPTION_MAX_LENGTH} from './const.js';
 import {sendData} from './api.js';
-import {onModalCloseButtonClick} from './preview';
+import {onModalCloseButtonClick} from './preview.js';
 
 const form = document.querySelector('.img-upload__form');
 const hashtagsInput = document.querySelector('.text__hashtags');
