@@ -103,11 +103,12 @@ const createPhotoContent = (photoContent) => {
   picturesWrapper.appendChild(fragment);
 };
 
+let uploadedPhotos = {};
+
 document.addEventListener('DOMContentLoaded', () => {
   getData(
     (photoContent) => {
-      // eslint-disable-next-line no-unused-vars
-      const uploadedPhotos = photoContent;
+      uploadedPhotos = photoContent;
       createPhotoContent(photoContent);
     },
     () => {
