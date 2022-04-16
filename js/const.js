@@ -1,3 +1,5 @@
+const ALERT_SHOW_TIME = 5000;
+
 const PHOTO_COUNT = 25;
 
 const MIN_MESSAGE_COUNT = 1;
@@ -17,6 +19,7 @@ const CONTROL_DEFAULT_VALUE = 100;
 const EFFECT_CLASS_START = 'effects__preview--';
 
 export {
+  ALERT_SHOW_TIME,
   PHOTO_COUNT,
   MIN_MESSAGE_COUNT,
   MAX_MESSAGE_COUNT,

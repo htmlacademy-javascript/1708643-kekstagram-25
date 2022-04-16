@@ -1,4 +1,4 @@
-import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT} from './const.js';
+import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT, ALERT_SHOW_TIME} from './const.js';
 
 // имя_функции(от, до);  // Результат: целое число из диапазона "от...до"
 const getRandomInt = (min, max) => {
@@ -50,6 +50,27 @@ const isEscEvent = (evt) => evt.key === ('Escape' || 'Esc');
 
 const isEnterEvent = (evt) => evt.key === 'Enter';
 
+const showAlert = (message, showTime = ALERT_SHOW_TIME) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, showTime);
+};
+
 export {
   getRandomInt,
   getRandomArrayElement,
@@ -58,5 +79,6 @@ export {
   getIntValue,
   isEscEvent,
   isEnterEvent,
-  checkMaxStringLength
+  checkMaxStringLength,
+  showAlert
 };
