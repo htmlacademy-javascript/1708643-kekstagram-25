@@ -8,6 +8,7 @@ const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const body = document.body;
 const modalCloseButton = document.querySelector('#upload-cancel');
 const hideClass = 'hidden';
+const form = document.querySelector('.img-upload__form');
 
 const scaleSmaller = document.querySelector('.scale__control--smaller');
 const scaleBigger = document.querySelector('.scale__control--bigger');
@@ -29,6 +30,7 @@ const closeUploadFileModal = () => {
   imgPreview.classList.value = `${EFFECT_CLASS_START  }none`;
   effectNone.checked = true;
   valueEffectLevel.value = CONTROL_DEFAULT_VALUE;
+  form.reset();
 
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
