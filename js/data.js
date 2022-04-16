@@ -1,3 +1,6 @@
+const GET_URL = 'https://25.javascript.pages.academy/kekstagram/data';
+const POST_URL = 'https://25.javascript.pages.academy/kekstagram';
+
 const NAMES = [
   'Инна',
   'Иван',
@@ -29,6 +32,8 @@ const DESCRIPTION = [
 ];
 
 export {
+  GET_URL,
+  POST_URL,
   NAMES,
   MESSAGE,
   DESCRIPTION

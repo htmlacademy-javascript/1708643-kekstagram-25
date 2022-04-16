@@ -1,6 +1,8 @@
-import {isEscEvent} from './util.js';
+import {isEscEvent, showAlert} from './util.js';
 import {arrayPhoto} from './photo.js';
 import {COMMENTS_TO_SHOW_COUNT} from './const.js';
+//import {getData, sendData} from './api.js';
+import {GET_URL, POST_URL} from './data.js';
 
 const bigPictureBlock = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureBlock.querySelector('.big-picture__img img');
@@ -82,6 +84,22 @@ const createPictureModalData = () => {
   bigPictureCommentsCount.textContent = pictureData.comments;
   createComments(pictureData.comments);
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetch(GET_URL)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(`${response.status} ${response.statusText}`);
+    })
+    .then((arrayPhoto) => {
+      arrayPhoto;
+    })
+    .catch((error) => {
+      showAlert('Не удалось загрузить данные!');
+    });
+});
 
 const getPhotoId = (evt) => {
   const target = evt.target; // ключ в объекте события, на котором это событие произошло (целевой элемент)
