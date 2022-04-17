@@ -11,6 +11,7 @@ const clearPictures = () => {
 
 const onPictureClick = (evt) => {
   evt.preventDefault();
+  console.log('onPictureClick');
   openPictureModal(evt);
 };
 
@@ -29,10 +30,15 @@ const setPicturesViewed = () => {
 
 const renderPictures = (photosData) => {
   const fragment = document.createDocumentFragment();
-  photosData.forEach((element) => fragment.appendChild(createPicture(element)));
+  photosData.forEach(
+    (element) => {
+      fragment.appendChild(createPicture(element));
+      setPicturesViewed();
+    }
+  );
   clearPictures();
   pictureContainer.appendChild(fragment);
-  setPicturesViewed();
+  // setPicturesViewed();
 };
 
 export {renderPictures};

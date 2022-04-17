@@ -87,7 +87,7 @@ const onPictureModalEscPress = (evt) => {
 };
 
 const createPictureModalData = () => {
-  console.log('createPictureModalData');
+  console.log('+createPictureModalData');
   bigPictureImage.src = pictureData.url;
   bigPictureLikes.textContent = pictureData.likes;
   bigPictureDescription.textContent = pictureData.description;
@@ -123,9 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
     (photoContent) => {
       uploadedPhotos = photoContent;
       createPhotoContent(photoContent);
-      renderPictures(photoContent);
       imgFilters.classList.remove('img-filters--inactive');
-      console.log(uploadedPhotos);
+      renderPictures(photoContent);
     },
     () => {
       showAlert('Не удалось загрузить данные!');
@@ -133,29 +132,29 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 });
 
-const getPhotoId = (evt) => {
-  console.log('+getPhotoId');
-  const target = evt.target; // ключ в объекте события, на котором это событие произошло (целевой элемент)
-  console.log(target);
-  if (target.dataset.photoId !== undefined) {
-    return target.dataset.photoId;
-  } else {
-    const parentTarget = target.parentNode;
-    return parentTarget.dataset.photoId;
-  }
-};
+// const getPhotoId = (evt) => {
+//   const target = evt.target; // ключ в объекте события, на котором это событие произошло (целевой элемент)
+//   console.log(target);
+//   if (target.dataset.photoId !== undefined) {
+//     return target.dataset.photoId;
+//   } else {
+//     const parentTarget = target.parentNode;
+//     return parentTarget.dataset.photoId;
+//   }
+// };
 
-const getPhotoDataById = (photoId) => {
-  const photosData = uploadedPhotos;
-  const photoDataById = photosData.find((element) => element.id === Number(photoId));
-  console.log(photoDataById);
-  return photoDataById;
-};
+// const getPhotoDataById = (photoId) => {
+//   const photosData = uploadedPhotos;
+//   const photoDataById = photosData.find((element) => element.id === Number(photoId));
+//   console.log(photoDataById);
+//   return photoDataById;
+// };
 
-const openPictureModal = (evt) => {
+const openPictureModal = () => {
   console.log('+openPictureModal');
-  const photoId = getPhotoId(evt);
-  pictureData = getPhotoDataById(photoId);
+  // const photoId = getPhotoId(evt);
+  // pictureData = getPhotoDataById(photoId);
+  //pictureData = uploadedPhotos;
   createPictureModalData();
 
   bigPictureCommentsLoader.addEventListener('click', onCommentShowMore);
