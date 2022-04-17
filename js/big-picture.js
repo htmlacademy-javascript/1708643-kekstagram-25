@@ -226,4 +226,4 @@ filterDiscussedButton.addEventListener('click', debounce(() => {
   handleFilterChange('filterDiscussedButton');
 }, FILTER_CHANGE_DEBOUNCE_TIME));
 
-export {openPictureModal, onModalCancelButtonClick, uploadedPhotos};
+export {openPictureModal, onModalCancelButtonClick};
