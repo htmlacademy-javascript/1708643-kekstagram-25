@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const getPhotoId = (evt) => {
+  console.log(getPhotoId);
   const target = evt.target; // ключ в объекте события, на котором это событие произошло (целевой элемент)
   if (target.dataset.photoId !== undefined) {
     return target.dataset.photoId;
@@ -149,7 +150,7 @@ const getPhotoDataById = (photoId) => {
 };
 
 const openPictureModal = (evt) => {
-  console.log('openPictureModal');
+  console.log('+openPictureModal');
   const photoId = getPhotoId(evt);
   pictureData = getPhotoDataById(photoId);
   createPictureModalData();
