@@ -144,6 +144,7 @@ const getPhotoId = (evt) => {
 const getPhotoDataById = (photoId) => {
   const photosData = uploadedPhotos;
   const photoDataById = photosData.find((element) => element.id === Number(photoId));
+  console.log(photoDataById);
   return photoDataById;
 };
 
