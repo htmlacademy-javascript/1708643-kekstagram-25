@@ -104,8 +104,8 @@ const setSubmitButtonState = (isBlocked) => {
   uploadSubmit.textContent = isBlocked ? 'Публикую...' : 'Опубликовать';
 };
 
-const handleSubmit = (evt) => {
-  evt.preventDefault();
+const onHandleSubmit = () => {
+  //evt.preventDefault();
   setSubmitButtonState(true);
   const formData = new FormData(form);
 
@@ -125,8 +125,10 @@ const handleSubmit = (evt) => {
 };
 
 const setFormSubmit = () => {
-  form.addEventListener('submit', handleSubmit);
+  form.addEventListener('submit', onHandleSubmit);
 };
+
+onHandleSubmit();
 
 export {
   hashtagsInput,
