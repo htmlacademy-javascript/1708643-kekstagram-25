@@ -72,11 +72,9 @@ const onFileInputChange = () => {
   modalCloseButton.addEventListener('click', onModalCloseButtonClick);
 };
 
-const openUploadFile = () => {
+const openUploadFile = (evt) => {
   fileInput.addEventListener('change', onFileInputChange);
-  openPictureModal();
+  openPictureModal(evt);
 };
-
-// openUploadFile();
 
 export {onModalCloseButtonClick, openUploadFile};
