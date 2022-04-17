@@ -32,9 +32,9 @@ const POST_URL = 'https://25.javascript.pages.academy/kekstagram';
 // ];
 
 export {
-  GET_URL,
-  POST_URL
   // NAMES,
   // MESSAGE,
-  // DESCRIPTION
+  // DESCRIPTION,
+  GET_URL,
+  POST_URL
 };

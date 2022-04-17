@@ -1,6 +1,8 @@
 import {openPictureModal} from './big-picture.js';
 import {isEnterEvent} from './util.js';
 import {createPicture, pictureContainer} from './picture.js';
+import {uploadedPhotos} from './big-picture.js';
+// import {arrayPhoto} from './photo.js';
 
 const clearPictures = () => {
   const pictures = pictureContainer.querySelectorAll('.picture');
@@ -34,7 +36,8 @@ const renderPictures = (photosData) => {
   pictureContainer.appendChild(fragment);
   setPicturesViewed();
 };
-
-//renderPictures(arrayPhoto);
+// console.log(arrayPhoto);
+// console.log(uploadedPhotos);
+renderPictures(uploadedPhotos);
 
 export {renderPictures};

@@ -86,6 +86,7 @@ const onPictureModalEscPress = (evt) => {
 };
 
 const createPictureModalData = () => {
+  console.log('createPictureModalData');
   bigPictureImage.src = pictureData.url;
   bigPictureLikes.textContent = pictureData.likes;
   bigPictureDescription.textContent = pictureData.description;
@@ -94,7 +95,7 @@ const createPictureModalData = () => {
 };
 
 const createPhotoContent = (photoContent) => {
-
+  console.log('+createPhotoContent');
   photoContent.forEach((photo) => {
     const templateClone = pictureTemplateElement.cloneNode(true);
     templateClone.querySelector('.picture__img').src = photo.url;
@@ -122,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
       uploadedPhotos = photoContent;
       createPhotoContent(photoContent);
       imgFilters.classList.remove('img-filters--inactive');
+      console.log(uploadedPhotos);
     },
     () => {
       showAlert('Не удалось загрузить данные!');
@@ -146,6 +148,7 @@ const getPhotoDataById = (photoId) => {
 };
 
 const openPictureModal = (evt) => {
+  console.log('openPictureModal');
   const photoId = getPhotoId(evt);
   pictureData = getPhotoDataById(photoId);
   createPictureModalData();
@@ -222,4 +225,4 @@ filterDiscussedButton.addEventListener('click', debounce(() => {
   handleFilterChange('filterDiscussedButton');
 }, FILTER_CHANGE_DEBOUNCE_TIME));
 
-export {openPictureModal, onModalCancelButtonClick};
+export {openPictureModal, onModalCancelButtonClick, uploadedPhotos};
