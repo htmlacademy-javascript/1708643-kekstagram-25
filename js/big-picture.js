@@ -132,8 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const getPhotoId = (evt) => {
-  console.log(getPhotoId);
+  console.log('+getPhotoId');
   const target = evt.target; // ключ в объекте события, на котором это событие произошло (целевой элемент)
+  console.log(target);
   if (target.dataset.photoId !== undefined) {
     return target.dataset.photoId;
   } else {
