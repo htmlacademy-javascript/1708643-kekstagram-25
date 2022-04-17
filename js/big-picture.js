@@ -165,6 +165,8 @@ const openPictureModal = (evt) => {
   document.addEventListener('keydown', onPictureModalEscPress);
 };
 
+openUploadFile();
+
 const showDefault = () => {
   filterDefaultButton.classList.add('img-filters__button--active');
   filterRandomButton.classList.remove('img-filters__button--active');

@@ -77,6 +77,6 @@ const openUploadFile = () => {
   openPictureModal();
 };
 
-openUploadFile();
+// openUploadFile();
 
 export {onModalCloseButtonClick, openUploadFile};
