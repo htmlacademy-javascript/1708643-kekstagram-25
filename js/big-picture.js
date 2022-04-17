@@ -2,6 +2,7 @@ import {isEscEvent, getRandomInt, showAlert, debounce} from './util.js';
 import {COMMENTS_TO_SHOW_COUNT, FILTER_CHANGE_DEBOUNCE_TIME, MAX_RANDOM_PHOTOS} from './const.js';
 import {getData} from './api.js';
 import {openUploadFile} from './preview.js';
+import {renderPictures} from './gallery.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
 const pictureTemplateElement = pictureTemplate.querySelector('a');
@@ -122,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     (photoContent) => {
       uploadedPhotos = photoContent;
       createPhotoContent(photoContent);
+      renderPictures(photoContent);
       imgFilters.classList.remove('img-filters--inactive');
       console.log(uploadedPhotos);
     },

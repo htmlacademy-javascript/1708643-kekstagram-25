@@ -2,6 +2,7 @@ import './data.js';
 import './util.js';
 import './const.js';
 import './picture.js';
+import './gallery.js';
 import './big-picture.js';
 import './form.js';
 import './preview.js';
