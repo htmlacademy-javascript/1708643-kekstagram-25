@@ -99,7 +99,6 @@ const createPictureModalData = (data) => {
   bigPictureImage.src = data.url;
   bigPictureLikes.textContent = data.likes;
   bigPictureDescription.textContent = data.description;
-  // bigPictureCommentsCount.textContent = data.comments.length;
   createComments(data.comments);
 };
 
