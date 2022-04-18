@@ -3,7 +3,6 @@ import {COMMENTS_TO_SHOW_COUNT, FILTER_CHANGE_DEBOUNCE_TIME, MAX_RANDOM_PHOTOS, 
 import {getData} from './api.js';
 import {openUploadFile} from './preview.js';
 import {renderPictures} from './gallery.js';
-import {unsetFormSubmit} from './form.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
 const pictureTemplateElement = pictureTemplate.querySelector('a');
@@ -81,7 +80,6 @@ const closePictureModal = () => {
   bigPictureCommentsLoader.classList.remove('hidden');
   bigPictureSocialCommentsCount.classList.remove('hidden');
   photoShowStep = 1;
-  unsetFormSubmit();
 };
 
 const onModalCancelButtonClick = () => {
@@ -167,7 +165,6 @@ const showDefault = () => {
   filterRandomButton.classList.remove('img-filters__button--active');
   filterDiscussedButton.classList.remove('img-filters__button--active');
 
-  //createPhotoContent(uploadedPhotos);
   renderPictures(uploadedPhotos);
 };
 
