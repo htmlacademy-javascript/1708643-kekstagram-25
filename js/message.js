@@ -1,6 +1,5 @@
 import {isEscEvent, showAlert} from './util.js';
 import {DOWNLOAD_ERROR_MESSAGE} from './const.js';
-import {unsetFormSubmit} from './form';
 
 const successMessageTemplateBlock = document.querySelector('#success');
 const successMessageTemplate = successMessageTemplateBlock.content.querySelector('.success');
@@ -35,7 +34,6 @@ const showSuccessMessage = () => {
   successButton.addEventListener('click', closeSuccessMessage);
   successMessage.addEventListener('click', onSuccessMessageOverlayClick);
   document.addEventListener('keydown', onSuccessMessageEscPress);
-  unsetFormSubmit();
 };
 
 const closeErrorMessage = () => {

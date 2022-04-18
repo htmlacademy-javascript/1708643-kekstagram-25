@@ -81,10 +81,6 @@ const setFormSubmit = () => {
   form.addEventListener('submit', onHandleSubmit);
 };
 
-const unsetFormSubmit = () => {
-  form.removeEventListener('submit', onHandleSubmit);
-};
-
 setFormSubmit();
 
 export {
@@ -92,6 +88,5 @@ export {
   descriptionInput,
   onHashtagInput,
   onDescriptionInput,
-  setFormSubmit,
-  unsetFormSubmit
+  setFormSubmit
 };
