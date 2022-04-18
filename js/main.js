@@ -1,4 +1,3 @@
-import './data.js';
 import './util.js';
 import './const.js';
 import './picture.js';

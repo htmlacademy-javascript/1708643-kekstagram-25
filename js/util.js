@@ -1,4 +1,4 @@
-import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT, ALERT_SHOW_TIME} from './const.js';
+import {ALERT_SHOW_TIME} from './const.js';
 
 const getRandomInt = (min, max) => {
   if (min >= 0 && max >= 0) {
@@ -15,25 +15,9 @@ const getRandomInt = (min, max) => {
   return -1;
 };
 
-const getRandomArrayElement = (elements) => elements[getRandomInt(0, elements.length - 1)];
-
-const messageCount = getRandomInt(MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT);
-
 const checkMaxStringLength = (checkString, maxLength) => {
   const stringLength = checkString.length;
   return stringLength <= maxLength;
-};
-
-const getUniqueNum = (min, max, array) => {
-  const uniqueNum = getRandomInt(min, max);
-  if ( array.length < (max - min + 1) ) {
-    if (array.includes(uniqueNum)) {
-      array = getUniqueNum(min, max, array);
-    } else {
-      array.push(uniqueNum);
-    }
-  }
-  return array;
 };
 
 const getIntValue = (element) => {
@@ -42,8 +26,6 @@ const getIntValue = (element) => {
 };
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
-
-const isEnterEvent = (evt) => evt.key === 'Enter';
 
 const showAlert = (message, showTime = ALERT_SHOW_TIME) => {
   const alertContainer = document.createElement('div');
@@ -75,12 +57,8 @@ const debounce = (callback, timeoutDelay = 500) => (...rest) => {
 
 export {
   getRandomInt,
-  getRandomArrayElement,
-  messageCount,
-  getUniqueNum,
   getIntValue,
   isEscEvent,
-  isEnterEvent,
   checkMaxStringLength,
   showAlert,
   debounce

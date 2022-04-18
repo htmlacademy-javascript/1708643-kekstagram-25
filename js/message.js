@@ -1,5 +1,4 @@
-import {isEscEvent, showAlert} from './util.js';
-import {DOWNLOAD_ERROR_MESSAGE} from './const.js';
+import {isEscEvent} from './util.js';
 
 const successMessageTemplateBlock = document.querySelector('#success');
 const successMessageTemplate = successMessageTemplateBlock.content.querySelector('.success');
@@ -65,8 +64,4 @@ const showErrorMessage = () => {
   document.addEventListener('keydown', onErrorMessageEscPress);
 };
 
-const showDownloadErrorAlert = () => {
-  showAlert(DOWNLOAD_ERROR_MESSAGE);
-};
-
-export {showSuccessMessage, showErrorMessage, showDownloadErrorAlert};
+export {showSuccessMessage, showErrorMessage};

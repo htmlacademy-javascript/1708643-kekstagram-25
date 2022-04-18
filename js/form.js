@@ -3,7 +3,7 @@ import {HASHTAGS_DELIMITER, HASHTAGS_MAX_COUNT, DESCRIPTION_MAX_LENGTH} from './
 import {sendData} from './api.js';
 import {onModalCloseButtonClick} from './preview.js';
 import {showErrorMessage, showSuccessMessage} from './message.js';
-import {POST_URL} from './data.js';
+import {POST_URL} from './const.js';
 
 const form = document.querySelector('.img-upload__form');
 const hashtagsInput = document.querySelector('.text__hashtags');
@@ -87,6 +87,5 @@ export {
   hashtagsInput,
   descriptionInput,
   onHashtagInput,
-  onDescriptionInput,
-  setFormSubmit
+  onDescriptionInput
 };

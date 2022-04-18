@@ -1,4 +1,4 @@
-import {GET_URL, POST_URL} from './data.js';
+import {GET_URL, POST_URL} from './const.js';
 
 const getData = (onSuccess, onFail)  => {
   fetch(GET_URL)
