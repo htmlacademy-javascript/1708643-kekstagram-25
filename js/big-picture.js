@@ -3,7 +3,7 @@ import {COMMENTS_TO_SHOW_COUNT, FILTER_CHANGE_DEBOUNCE_TIME, MAX_RANDOM_PHOTOS, 
 import {getData} from './api.js';
 import {openUploadFile} from './preview.js';
 import {renderPictures} from './gallery.js';
-import {setFormSubmit, unsetFormSubmit} from './form.js';
+import {unsetFormSubmit} from './form.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
 const pictureTemplateElement = pictureTemplate.querySelector('a');
@@ -134,21 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 });
 
-const openPictureModal = () => {
-
-  bigPictureCommentsLoader.addEventListener('click', onCommentShowMore);
-  bigPictureCommentsLoader.classList.remove('hidden');
-
-  bigPictureBlock.classList.remove('hidden');
-  body.classList.add('modal-open');
-  bigPictureSocialCommentsCount.classList.add('hidden');
-
-  bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
-  document.addEventListener('keydown', onPictureModalEscPress);
-
-  setFormSubmit();
-};
-
 const showModal = (picture) => {
   bigPictureCommentsLoader.addEventListener('click', onCommentShowMore);
   bigPictureCommentsLoader.classList.remove('hidden');
@@ -160,8 +145,6 @@ const showModal = (picture) => {
 
   bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
   document.addEventListener('keydown', onPictureModalEscPress);
-
-  setFormSubmit();
 };
 
 openUploadFile();
@@ -227,4 +210,4 @@ filterDiscussedButton.addEventListener('click', debounce(() => {
   handleFilterChange('filterDiscussedButton');
 }, FILTER_CHANGE_DEBOUNCE_TIME));
 
-export {openPictureModal, showModal, closePictureModal, onModalCancelButtonClick};
+export {showModal, closePictureModal, onModalCancelButtonClick};

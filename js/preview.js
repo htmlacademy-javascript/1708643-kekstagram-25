@@ -2,7 +2,6 @@ import {isEscEvent} from './util.js';
 import {descriptionInput, hashtagsInput, onDescriptionInput, onHashtagInput} from './form.js';
 import {imgPreview, scaleValue, sliderBlockNone, lowerSizeImg, incrementSizeImg} from './effect.js';
 import {CONTROL_MAX_VALUE, EFFECT_CLASS_START, CONTROL_DEFAULT_VALUE} from './const.js';
-import {openPictureModal} from './big-picture.js';
 
 const fileInput = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');

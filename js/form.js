@@ -85,6 +85,8 @@ const unsetFormSubmit = () => {
   form.removeEventListener('submit', onHandleSubmit);
 };
 
+setFormSubmit();
+
 export {
   hashtagsInput,
   descriptionInput,

@@ -1,4 +1,4 @@
-import {showModal, closePictureModal} from './big-picture.js';
+import {showModal} from './big-picture.js';
 //import {isEnterEvent} from './util.js';
 import {createPicture, pictureContainer} from './picture.js';
 
