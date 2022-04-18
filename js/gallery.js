@@ -1,5 +1,4 @@
 import {showModal} from './big-picture.js';
-//import {isEnterEvent} from './util.js';
 import {createPicture, pictureContainer} from './picture.js';
 
 // const clearPictures = () => {
