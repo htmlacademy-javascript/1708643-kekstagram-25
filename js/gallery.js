@@ -1,4 +1,4 @@
-import {openPictureModal} from './big-picture.js';
+import {openPictureModal, showModal, closePictureModal} from './big-picture.js';
 import {isEnterEvent} from './util.js';
 import {createPicture, pictureContainer} from './picture.js';
 
@@ -11,7 +11,6 @@ const clearPictures = () => {
 
 const onPictureClick = (evt) => {
   evt.preventDefault();
-  console.log('onPictureClick');
   openPictureModal(evt);
 };
 
@@ -30,15 +29,16 @@ const setPicturesViewed = () => {
 
 const renderPictures = (photosData) => {
   const fragment = document.createDocumentFragment();
-  photosData.forEach(
-    (element) => {
-      fragment.appendChild(createPicture(element));
-      setPicturesViewed();
-    }
-  );
-  clearPictures();
+  closePictureModal();
+  photosData.forEach((photoData) => {
+    const photoDataElement = createPicture(photoData);
+    photoDataElement.addEventListener('click', (e) => {
+      e.preventDefault();
+      showModal(photoData);
+    });
+    fragment.appendChild(photoDataElement);
+  });
   pictureContainer.appendChild(fragment);
-  // setPicturesViewed();
 };
 
 export {renderPictures};

@@ -48,11 +48,10 @@ const createComment = (comment) => {
 };
 
 let photoShowStep = 1;
-let pictureData = {};
+let currentComments = [];
 
-const createComments = () => {
-  pictureData
-    .comments
+const createComments = (currentData) => {
+  currentData
     .slice(0, photoShowStep * COMMENTS_TO_SHOW_COUNT)
     .forEach((comment) => fragment.appendChild(createComment(comment)));
   bigPictureCommentsBlock.innerHTML = '';
@@ -61,10 +60,10 @@ const createComments = () => {
 
 const onCommentShowMore = () => {
   photoShowStep++;
-  if (photoShowStep * COMMENTS_TO_SHOW_COUNT >= pictureData.comments.length) {
+  if (photoShowStep * COMMENTS_TO_SHOW_COUNT >= currentComments.length) {
     bigPictureCommentsLoader.classList.add('hidden');
   }
-  createComments();
+  createComments(currentComments);
 };
 
 const closePictureModal = () => {
@@ -72,6 +71,7 @@ const closePictureModal = () => {
   body.classList.remove('modal-open');
   bigPictureCommentsLoader.classList.remove('hidden');
   bigPictureSocialCommentsCount.classList.remove('hidden');
+  photoShowStep = 1;
   unsetFormSubmit();
 };
 
@@ -88,17 +88,15 @@ const onPictureModalEscPress = (evt) => {
   }
 };
 
-const createPictureModalData = () => {
-  console.log('+createPictureModalData');
-  bigPictureImage.src = pictureData.url;
-  bigPictureLikes.textContent = pictureData.likes;
-  bigPictureDescription.textContent = pictureData.description;
-  bigPictureCommentsCount.textContent = pictureData.comments;
-  createComments(pictureData.comments);
+const createPictureModalData = (data) => {
+  bigPictureImage.src = data.url;
+  bigPictureLikes.textContent = data.likes;
+  bigPictureDescription.textContent = data.description;
+  bigPictureCommentsCount.textContent = data.comments;
+  createComments(data.comments);
 };
 
 const createPhotoContent = (photoContent) => {
-  console.log('+createPhotoContent');
   photoContent.forEach((photo) => {
     const templateClone = pictureTemplateElement.cloneNode(true);
     templateClone.querySelector('.picture__img').src = photo.url;
@@ -124,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
   getData(
     (photoContent) => {
       uploadedPhotos = photoContent;
-      createPhotoContent(photoContent);
       imgFilters.classList.remove('img-filters--inactive');
       renderPictures(photoContent);
     },
@@ -134,30 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 });
 
-// const getPhotoId = (evt) => {
-//   const target = evt.target; // ключ в объекте события, на котором это событие произошло (целевой элемент)
-//   console.log(target);
-//   if (target.dataset.photoId !== undefined) {
-//     return target.dataset.photoId;
-//   } else {
-//     const parentTarget = target.parentNode;
-//     return parentTarget.dataset.photoId;
-//   }
-// };
-
-// const getPhotoDataById = (photoId) => {
-//   const photosData = uploadedPhotos;
-//   const photoDataById = photosData.find((element) => element.id === Number(photoId));
-//   console.log(photoDataById);
-//   return photoDataById;
-// };
-
 const openPictureModal = () => {
-  console.log('+openPictureModal');
-  // const photoId = getPhotoId(evt);
-  // pictureData = getPhotoDataById(photoId);
-  //pictureData = uploadedPhotos;
-  createPictureModalData();
 
   bigPictureCommentsLoader.addEventListener('click', onCommentShowMore);
   bigPictureCommentsLoader.classList.remove('hidden');
@@ -165,6 +139,21 @@ const openPictureModal = () => {
   bigPictureBlock.classList.remove('hidden');
   body.classList.add('modal-open');
   bigPictureSocialCommentsCount.classList.add('hidden');
+
+  bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
+  document.addEventListener('keydown', onPictureModalEscPress);
+
+  setFormSubmit();
+};
+
+const showModal = (picture) => {
+  bigPictureCommentsLoader.addEventListener('click', onCommentShowMore);
+  bigPictureCommentsLoader.classList.remove('hidden');
+
+  bigPictureBlock.classList.remove('hidden');
+  body.classList.add('modal-open');
+  createPictureModalData(picture);
+  currentComments = picture.comments;
 
   bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
   document.addEventListener('keydown', onPictureModalEscPress);
@@ -235,4 +224,4 @@ filterDiscussedButton.addEventListener('click', debounce(() => {
   handleFilterChange('filterDiscussedButton');
 }, FILTER_CHANGE_DEBOUNCE_TIME));
 
-export {openPictureModal, onModalCancelButtonClick};
+export {openPictureModal, showModal, closePictureModal, onModalCancelButtonClick};
