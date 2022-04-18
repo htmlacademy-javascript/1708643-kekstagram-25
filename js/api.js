@@ -17,17 +17,17 @@ const getData = (onSuccess, onFail)  => {
     });
 };
 
-const sendData = (data, onSuccess, onFail)  => {
+const sendData = (url, formData, onSuccess, onError)  => {
   fetch(
     POST_URL,
     {
       method: 'POST',
-      body: data,
+      body: formData,
     },
   )
-    .then((response) => (response.ok) ? onSuccess() : onFail())
-    .catch(() => {
-      onFail();
+    .then((response) => (response.ok) ? onSuccess() : onError())
+    .catch((e) => {
+      onError(e);
     });
 };
 
