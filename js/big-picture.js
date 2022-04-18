@@ -154,7 +154,8 @@ const showDefault = () => {
   filterRandomButton.classList.remove('img-filters__button--active');
   filterDiscussedButton.classList.remove('img-filters__button--active');
 
-  createPhotoContent(uploadedPhotos);
+  //createPhotoContent(uploadedPhotos);
+  renderPictures(uploadedPhotos);
 };
 
 const showRandom = () => {
@@ -173,7 +174,7 @@ const showRandom = () => {
     }
   }
 
-  createPhotoContent(randomPhotos);
+  renderPictures(randomPhotos);
 };
 
 const showPopular = () => {
@@ -183,7 +184,7 @@ const showPopular = () => {
 
   const sortedPhotos = [...uploadedPhotos].sort((a, b) => b.comments.length - a.comments.length);
 
-  createPhotoContent(sortedPhotos);
+  renderPictures(sortedPhotos);
 };
 
 const handleFilterChange = (filterName) => {
@@ -210,4 +211,4 @@ filterDiscussedButton.addEventListener('click', debounce(() => {
   handleFilterChange('filterDiscussedButton');
 }, FILTER_CHANGE_DEBOUNCE_TIME));
 
-export {showModal, closePictureModal, onModalCancelButtonClick};
+export {showModal, closePictureModal, onModalCancelButtonClick, createPhotoContent};
