@@ -16,6 +16,7 @@ const bigPictureCommentsCount = bigPictureBlock.querySelector('.comments-count')
 const bigPictureCommentsBlock = bigPictureBlock.querySelector('.social__comments');
 const bigPictureDescription = bigPictureBlock.querySelector('.social__caption');
 const bigPictureCommentsLoader = bigPictureBlock.querySelector('.comments-loader');
+const bigPictureCommentsShowCount = bigPictureBlock.querySelector('.comments-show-count');
 const bigPictureSocialCommentsCount = bigPictureBlock.querySelector('.social__comment-count');
 const body = document.querySelector('body');
 const bigPictureCancel = bigPictureBlock.querySelector('.big-picture__cancel');
@@ -140,8 +141,15 @@ const showModal = (picture) => {
 
   bigPictureBlock.classList.remove('hidden');
   body.classList.add('modal-open');
-  createPictureModalData(picture);
   currentComments = picture.comments;
+  if (currentComments.length <= COMMENTS_TO_SHOW_COUNT) {
+    bigPictureCommentsLoader.classList.add('hidden');
+    bigPictureCommentsShowCount.innerText = currentComments.length;
+  } else {
+    bigPictureCommentsLoader.classList.remove('hidden');
+    bigPictureCommentsShowCount.innerText = COMMENTS_TO_SHOW_COUNT;
+  }
+  createPictureModalData(picture);
 
   bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
   document.addEventListener('keydown', onPictureModalEscPress);
