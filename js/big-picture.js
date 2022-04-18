@@ -64,9 +64,12 @@ const createComments = (currentData) => {
 
 const onCommentShowMore = () => {
   photoShowStep++;
-  if (photoShowStep * COMMENTS_TO_SHOW_COUNT >= currentComments.length) {
+  let currentCommentCount = COMMENTS_TO_SHOW_COUNT;
+  if (photoShowStep * currentCommentCount >= currentComments.length) {
     bigPictureCommentsLoader.classList.add('hidden');
+    bigPictureCommentsShowCount.innerText = currentComments.length;
   }
+  currentCommentCount++;
   createComments(currentComments);
 };
 
