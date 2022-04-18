@@ -46,7 +46,7 @@ const getIntValue = (element) => {
   return window.parseInt(valueString);
 };
 
-const isEscEvent = (evt) => evt.key === ('Escape' || 'Esc');
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 const isEnterEvent = (evt) => evt.key === 'Enter';
 

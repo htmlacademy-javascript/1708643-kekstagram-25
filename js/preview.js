@@ -74,7 +74,6 @@ const onFileInputChange = () => {
 
 const openUploadFile = () => {
   fileInput.addEventListener('change', onFileInputChange);
-  openPictureModal();
 };
 
 export {onModalCloseButtonClick, openUploadFile};

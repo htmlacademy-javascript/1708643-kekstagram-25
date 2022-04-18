@@ -51,6 +51,7 @@ let photoShowStep = 1;
 let currentComments = [];
 
 const createComments = (currentData) => {
+  bigPictureCommentsCount.textContent = currentData.length;
   currentData
     .slice(0, photoShowStep * COMMENTS_TO_SHOW_COUNT)
     .forEach((comment) => {
@@ -94,7 +95,7 @@ const createPictureModalData = (data) => {
   bigPictureImage.src = data.url;
   bigPictureLikes.textContent = data.likes;
   bigPictureDescription.textContent = data.description;
-  bigPictureCommentsCount.textContent = data.comments.length;
+  // bigPictureCommentsCount.textContent = data.comments.length;
   createComments(data.comments);
 };
 

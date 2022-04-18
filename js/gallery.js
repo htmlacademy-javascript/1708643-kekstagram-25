@@ -29,7 +29,6 @@ import {createPicture, pictureContainer} from './picture.js';
 
 const renderPictures = (photosData) => {
   const fragment = document.createDocumentFragment();
-  closePictureModal();
   photosData.forEach((photoData) => {
     const photoDataElement = createPicture(photoData);
     photoDataElement.addEventListener('click', (e) => {
