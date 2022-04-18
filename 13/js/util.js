@@ -1,6 +1,5 @@
-import {MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT, ALERT_SHOW_TIME} from './const.js';
+import {ALERT_SHOW_TIME} from './const.js';
 
-// имя_функции(от, до);  // Результат: целое число из диапазона "от...до"
 const getRandomInt = (min, max) => {
   if (min >= 0 && max >= 0) {
     if (min > max) {
@@ -15,30 +14,10 @@ const getRandomInt = (min, max) => {
   }
   return -1;
 };
-//getRandomInt(10, 22);
 
-const getRandomArrayElement = (elements) => elements[getRandomInt(0, elements.length - 1)];
-
-const messageCount = getRandomInt(MIN_MESSAGE_COUNT, MAX_MESSAGE_COUNT);
-
-// имя_функции(проверяемая_строка, максимальная_длина); // Результат: true, если строка проходит по длине, и false — если не проходит
-// eslint-disable-next-line no-unused-vars
 const checkMaxStringLength = (checkString, maxLength) => {
   const stringLength = checkString.length;
   return stringLength <= maxLength;
-};
-//checkMaxStringLength('random', 140);
-
-const getUniqueNum = (min, max, array) => {
-  const uniqueNum = getRandomInt(min, max);
-  if ( array.length < (max - min + 1) ) {
-    if (array.includes(uniqueNum)) {
-      array = getUniqueNum(min, max, array);
-    } else {
-      array.push(uniqueNum);
-    }
-  }
-  return array;
 };
 
 const getIntValue = (element) => {
@@ -46,9 +25,7 @@ const getIntValue = (element) => {
   return window.parseInt(valueString);
 };
 
-const isEscEvent = (evt) => evt.key === ('Escape' || 'Esc');
-
-const isEnterEvent = (evt) => evt.key === 'Enter';
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 const showAlert = (message, showTime = ALERT_SHOW_TIME) => {
   const alertContainer = document.createElement('div');
@@ -71,23 +48,17 @@ const showAlert = (message, showTime = ALERT_SHOW_TIME) => {
   }, showTime);
 };
 
-const debounce = (callback, timeoutDelay = 500) => {
-  let timeoutId;
+let timeoutId;
 
-  return (...rest) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
+const debounce = (callback, timeoutDelay = 500) => (...rest) => {
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
 };
 
 export {
   getRandomInt,
-  getRandomArrayElement,
-  messageCount,
-  getUniqueNum,
   getIntValue,
   isEscEvent,
-  isEnterEvent,
   checkMaxStringLength,
   showAlert,
   debounce

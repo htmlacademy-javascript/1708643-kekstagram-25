@@ -1,12 +1,12 @@
+const GET_URL = 'https://25.javascript.pages.academy/kekstagram/data';
+const POST_URL = 'https://25.javascript.pages.academy/kekstagram';
+
 const ALERT_SHOW_TIME = 5000;
 
 const FILTER_CHANGE_DEBOUNCE_TIME = 500;
 const MAX_RANDOM_PHOTOS = 10;
 
 const PHOTO_COUNT = 25;
-
-const MIN_MESSAGE_COUNT = 1;
-const MAX_MESSAGE_COUNT = 2;
 
 const HASHTAGS_DELIMITER = ' ';
 const HASHTAGS_MAX_COUNT = 5;
@@ -21,13 +21,15 @@ const CONTROL_DEFAULT_VALUE = 100;
 
 const EFFECT_CLASS_START = 'effects__preview--';
 
+const DOWNLOAD_ERROR_MESSAGE = 'Не удалось выполнить загрузку данных!';
+
 export {
+  GET_URL,
+  POST_URL,
   ALERT_SHOW_TIME,
   FILTER_CHANGE_DEBOUNCE_TIME,
   MAX_RANDOM_PHOTOS,
   PHOTO_COUNT,
-  MIN_MESSAGE_COUNT,
-  MAX_MESSAGE_COUNT,
   HASHTAGS_DELIMITER,
   HASHTAGS_MAX_COUNT,
   DESCRIPTION_MAX_LENGTH,
@@ -36,5 +38,6 @@ export {
   CONTROL_MIN_VALUE,
   CONTROL_STEP,
   CONTROL_DEFAULT_VALUE,
-  EFFECT_CLASS_START
+  EFFECT_CLASS_START,
+  DOWNLOAD_ERROR_MESSAGE
 };

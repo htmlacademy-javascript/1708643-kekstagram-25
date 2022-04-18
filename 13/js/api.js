@@ -1,7 +1,6 @@
-import {GET_URL, POST_URL} from './data.js';
+import {GET_URL, POST_URL} from './const.js';
 
-// const getData = (onSuccess, onFail)  => {
-const getData = (onSuccess)  => {
+const getData = (onSuccess, onFail)  => {
   fetch(GET_URL)
     .then((response) => {
       if (response.ok) {
@@ -12,38 +11,24 @@ const getData = (onSuccess)  => {
     })
     .then((content) => {
       onSuccess(content);
-    // })
-    // .catch(() => {
-    //   onFail();
-    });
-};
-
-const sendData = (data, onSuccess, onFail)  => {
-  fetch(
-    POST_URL,
-    {
-      method: 'POST',
-      body: data,
-    },
-  )
-    .then((response) => (response.ok) ? onSuccess() : onFail())
+    })
     .catch(() => {
       onFail();
     });
 };
 
-const postData  = (form) => {
-  const formData = new FormData(form);
+const sendData = (url, formData, onSuccess, onError)  => {
   fetch(
     POST_URL,
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
       body: formData,
     },
-  );
+  )
+    .then((response) => (response.ok) ? onSuccess() : onError())
+    .catch((e) => {
+      onError(e);
+    });
 };
 
-export {getData, sendData, postData};
+export {getData, sendData};
