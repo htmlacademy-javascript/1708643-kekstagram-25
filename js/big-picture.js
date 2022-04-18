@@ -53,7 +53,9 @@ let currentComments = [];
 const createComments = (currentData) => {
   currentData
     .slice(0, photoShowStep * COMMENTS_TO_SHOW_COUNT)
-    .forEach((comment) => fragment.appendChild(createComment(comment)));
+    .forEach((comment) => {
+      fragment.appendChild(createComment(comment));
+    });
   bigPictureCommentsBlock.innerHTML = '';
   bigPictureCommentsBlock.appendChild(fragment);
 };
@@ -92,7 +94,7 @@ const createPictureModalData = (data) => {
   bigPictureImage.src = data.url;
   bigPictureLikes.textContent = data.likes;
   bigPictureDescription.textContent = data.description;
-  bigPictureCommentsCount.textContent = data.comments;
+  bigPictureCommentsCount.textContent = data.comments.length;
   createComments(data.comments);
 };
 
