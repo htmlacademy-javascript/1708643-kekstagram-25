@@ -1,11 +1,9 @@
-import {isEscEvent, showAlert} from './util.js';
-// import {arrayPhoto} from './photo.js';
-import {COMMENTS_TO_SHOW_COUNT} from './const.js';
+import {isEscEvent, getRandomInt, showAlert, debounce} from './util.js';
+import {COMMENTS_TO_SHOW_COUNT, FILTER_CHANGE_DEBOUNCE_TIME, MAX_RANDOM_PHOTOS, DOWNLOAD_ERROR_MESSAGE} from './const.js';
 import {getData} from './api.js';
 import {openUploadFile} from './preview.js';
+import {renderPictures} from './gallery.js';
 
-const pictureTemplate = document.querySelector('#picture').content;
-const pictureTemplateElement = pictureTemplate.querySelector('a');
 const fragment = document.createDocumentFragment();
 const picturesWrapper = document.querySelector('.pictures');
 const bigPictureBlock = document.querySelector('.big-picture');
@@ -15,9 +13,16 @@ const bigPictureCommentsCount = bigPictureBlock.querySelector('.comments-count')
 const bigPictureCommentsBlock = bigPictureBlock.querySelector('.social__comments');
 const bigPictureDescription = bigPictureBlock.querySelector('.social__caption');
 const bigPictureCommentsLoader = bigPictureBlock.querySelector('.comments-loader');
+const bigPictureCommentsShowCount = bigPictureBlock.querySelector('.comments-show-count');
 const bigPictureSocialCommentsCount = bigPictureBlock.querySelector('.social__comment-count');
 const body = document.querySelector('body');
 const bigPictureCancel = bigPictureBlock.querySelector('.big-picture__cancel');
+
+const imgFilters = document.querySelector('.img-filters');
+const imgFiltersForm = document.querySelector('.img-filters__form');
+const filterDefaultButton = imgFiltersForm.querySelector('#filter-default');
+const filterRandomButton = imgFiltersForm.querySelector('#filter-random');
+const filterDiscussedButton = imgFiltersForm.querySelector('#filter-discussed');
 
 const template = document.createElement('template');
 const commentTemplateString = `
@@ -41,24 +46,30 @@ const createComment = (comment) => {
 };
 
 let photoShowStep = 1;
-let pictureData = {};
+let currentComments = [];
 
-const createComments = () => {
-
-  pictureData
-    .comments
+const createComments = (currentData) => {
+  bigPictureCommentsCount.textContent = currentData.length;
+  currentData
     .slice(0, photoShowStep * COMMENTS_TO_SHOW_COUNT)
-    .forEach((comment) => fragment.appendChild(createComment(comment)));
+    .forEach((comment) => {
+      fragment.appendChild(createComment(comment));
+    });
   bigPictureCommentsBlock.innerHTML = '';
   bigPictureCommentsBlock.appendChild(fragment);
 };
 
 const onCommentShowMore = () => {
   photoShowStep++;
-  if (photoShowStep * COMMENTS_TO_SHOW_COUNT >= pictureData.comments.length) {
+  let currentCommentCount = COMMENTS_TO_SHOW_COUNT;
+  if (photoShowStep * currentCommentCount >= currentComments.length) {
     bigPictureCommentsLoader.classList.add('hidden');
+    bigPictureCommentsShowCount.innerText = currentComments.length;
+  } else {
+    currentCommentCount *= photoShowStep;
+    bigPictureCommentsShowCount.innerText = currentCommentCount;
   }
-  createComments();
+  createComments(currentComments);
 };
 
 const closePictureModal = () => {
@@ -66,6 +77,7 @@ const closePictureModal = () => {
   body.classList.remove('modal-open');
   bigPictureCommentsLoader.classList.remove('hidden');
   bigPictureSocialCommentsCount.classList.remove('hidden');
+  photoShowStep = 1;
 };
 
 const onModalCancelButtonClick = () => {
@@ -81,26 +93,18 @@ const onPictureModalEscPress = (evt) => {
   }
 };
 
-const createPictureModalData = () => {
-  bigPictureImage.src = pictureData.url;
-  bigPictureLikes.textContent = pictureData.likes;
-  bigPictureDescription.textContent = pictureData.description;
-  bigPictureCommentsCount.textContent = pictureData.comments;
-  createComments(pictureData.comments);
+const createPictureModalData = (data) => {
+  bigPictureImage.src = data.url;
+  bigPictureLikes.textContent = data.likes;
+  bigPictureDescription.textContent = data.description;
+  createComments(data.comments);
 };
 
-const createPhotoContent = (photoContent) => {
-
-  photoContent.forEach((photo) => {
-    const templateClone = pictureTemplateElement.cloneNode(true);
-    templateClone.querySelector('.picture__img').src = photo.url;
-    templateClone.querySelector('.picture__likes').textContent = photo.likes;
-    templateClone.querySelector('.picture__comments').textContent = photo.comments.length;
-    fragment.appendChild(templateClone);
-    templateClone.addEventListener('click', () => openUploadFile(photo));
+const removePhotoContent = () => {
+  const pictures = picturesWrapper.querySelectorAll('.picture');
+  pictures.forEach((picture) => {
+    picture.remove();
   });
-
-  picturesWrapper.appendChild(fragment);
 };
 
 let uploadedPhotos = {};
@@ -109,44 +113,96 @@ document.addEventListener('DOMContentLoaded', () => {
   getData(
     (photoContent) => {
       uploadedPhotos = photoContent;
-      createPhotoContent(photoContent);
+      imgFilters.classList.remove('img-filters--inactive');
+      renderPictures(photoContent);
     },
     () => {
-      showAlert('Не удалось загрузить данные!');
+      showAlert(DOWNLOAD_ERROR_MESSAGE);
     }
   );
 });
 
-const getPhotoId = (evt) => {
-  const target = evt.target; // ключ в объекте события, на котором это событие произошло (целевой элемент)
-  if (target.dataset.photoId !== undefined) {
-    return target.dataset.photoId;
-  } else {
-    const parentTarget = target.parentNode;
-    return parentTarget.dataset.photoId;
-  }
-};
-
-const getPhotoDataById = (photoId) => {
-  const photosData = uploadedPhotos;
-  const photoDataById = photosData.find((element) => element.id === Number(photoId));
-  return photoDataById;
-};
-
-const openPictureModal = (evt) => {
-  const photoId = getPhotoId(evt);
-  pictureData = getPhotoDataById(photoId);
-  createPictureModalData();
-
+const showModal = (picture) => {
   bigPictureCommentsLoader.addEventListener('click', onCommentShowMore);
   bigPictureCommentsLoader.classList.remove('hidden');
 
   bigPictureBlock.classList.remove('hidden');
   body.classList.add('modal-open');
-  bigPictureSocialCommentsCount.classList.add('hidden');
+  currentComments = picture.comments;
+  if (currentComments.length <= COMMENTS_TO_SHOW_COUNT) {
+    bigPictureCommentsLoader.classList.add('hidden');
+    bigPictureCommentsShowCount.innerText = currentComments.length;
+  } else {
+    bigPictureCommentsLoader.classList.remove('hidden');
+    bigPictureCommentsShowCount.innerText = COMMENTS_TO_SHOW_COUNT;
+  }
+  createPictureModalData(picture);
 
   bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
   document.addEventListener('keydown', onPictureModalEscPress);
 };
 
-export {openPictureModal, onModalCancelButtonClick};
+openUploadFile();
+
+const showDefault = () => {
+  filterDefaultButton.classList.add('img-filters__button--active');
+  filterRandomButton.classList.remove('img-filters__button--active');
+  filterDiscussedButton.classList.remove('img-filters__button--active');
+
+  renderPictures(uploadedPhotos);
+};
+
+const showRandom = () => {
+  filterRandomButton.classList.add('img-filters__button--active');
+  filterDefaultButton.classList.remove('img-filters__button--active');
+  filterDiscussedButton.classList.remove('img-filters__button--active');
+
+  const randomPhotos = [];
+  const usedIndexes = [];
+
+  while(randomPhotos.length < MAX_RANDOM_PHOTOS) {
+    const index = getRandomInt(0, MAX_RANDOM_PHOTOS - 1);
+    if(!usedIndexes.includes(index)) {
+      usedIndexes.push(index);
+      randomPhotos.push(uploadedPhotos[index]);
+    }
+  }
+
+  renderPictures(randomPhotos);
+};
+
+const showPopular = () => {
+  filterDiscussedButton.classList.add('img-filters__button--active');
+  filterDefaultButton.classList.remove('img-filters__button--active');
+  filterRandomButton.classList.remove('img-filters__button--active');
+
+  const sortedPhotos = [...uploadedPhotos].sort((a, b) => b.comments.length - a.comments.length);
+
+  renderPictures(sortedPhotos);
+};
+
+const handleFilterChange = (filterName) => {
+  removePhotoContent();
+
+  if(filterName === 'filterDefaultButton') {
+    showDefault();
+  } else if (filterName === 'filterRandomButton') {
+    showRandom();
+  } else if (filterName === 'filterDiscussedButton') {
+    showPopular();
+  }
+};
+
+filterDefaultButton.addEventListener('click', debounce(() => {
+  handleFilterChange('filterDefaultButton');
+}, FILTER_CHANGE_DEBOUNCE_TIME));
+
+filterRandomButton.addEventListener('click', debounce(() => {
+  handleFilterChange('filterRandomButton');
+}, FILTER_CHANGE_DEBOUNCE_TIME));
+
+filterDiscussedButton.addEventListener('click', debounce(() => {
+  handleFilterChange('filterDiscussedButton');
+}, FILTER_CHANGE_DEBOUNCE_TIME));
+
+export {showModal};

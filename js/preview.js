@@ -75,6 +75,4 @@ const openUploadFile = () => {
   fileInput.addEventListener('change', onFileInputChange);
 };
 
-openUploadFile();
-
 export {onModalCloseButtonClick, openUploadFile};
