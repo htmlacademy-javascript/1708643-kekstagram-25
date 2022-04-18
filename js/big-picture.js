@@ -1,8 +1,9 @@
 import {isEscEvent, getRandomInt, showAlert, debounce} from './util.js';
-import {COMMENTS_TO_SHOW_COUNT, FILTER_CHANGE_DEBOUNCE_TIME, MAX_RANDOM_PHOTOS} from './const.js';
+import {COMMENTS_TO_SHOW_COUNT, FILTER_CHANGE_DEBOUNCE_TIME, MAX_RANDOM_PHOTOS, DOWNLOAD_ERROR_MESSAGE} from './const.js';
 import {getData} from './api.js';
 import {openUploadFile} from './preview.js';
 import {renderPictures} from './gallery.js';
+import {setFormSubmit, unsetFormSubmit} from './form.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
 const pictureTemplateElement = pictureTemplate.querySelector('a');
@@ -71,6 +72,7 @@ const closePictureModal = () => {
   body.classList.remove('modal-open');
   bigPictureCommentsLoader.classList.remove('hidden');
   bigPictureSocialCommentsCount.classList.remove('hidden');
+  unsetFormSubmit();
 };
 
 const onModalCancelButtonClick = () => {
@@ -127,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderPictures(photoContent);
     },
     () => {
-      showAlert('Не удалось загрузить данные!');
+      showAlert(DOWNLOAD_ERROR_MESSAGE);
     }
   );
 });
@@ -166,6 +168,8 @@ const openPictureModal = () => {
 
   bigPictureCancel.addEventListener('click', onModalCancelButtonClick);
   document.addEventListener('keydown', onPictureModalEscPress);
+
+  setFormSubmit();
 };
 
 openUploadFile();

@@ -7,4 +7,5 @@ import './big-picture.js';
 import './form.js';
 import './preview.js';
 import './effect.js';
+import './message.js';
 import './api.js';

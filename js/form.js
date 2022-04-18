@@ -1,21 +1,15 @@
-import {checkMaxStringLength, isEscEvent} from './util.js';
+import {checkMaxStringLength} from './util.js';
 import {HASHTAGS_DELIMITER, HASHTAGS_MAX_COUNT, DESCRIPTION_MAX_LENGTH} from './const.js';
 import {sendData} from './api.js';
 import {onModalCloseButtonClick} from './preview.js';
+import {showErrorMessage, showSuccessMessage} from './message.js';
+import {POST_URL} from './data.js';
 
 const form = document.querySelector('.img-upload__form');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 
 const uploadSubmit = document.querySelector('.img-upload__submit');
-const uploadSuccessTemplate = document.querySelector('#success').content;
-const uploadSuccessElement = uploadSuccessTemplate.querySelector('section');
-const uploadSuccessButton = uploadSuccessElement.querySelector('.success__button');
-const uploadErrorTemplate = document.querySelector('#error').content;
-const uploadErrorElement = uploadErrorTemplate.querySelector('section');
-const uploadErrorButton = uploadErrorElement.querySelector('.error__button');
-const successSection = document.querySelector('.success');
-const errorSection = document.querySelector('.error');
 
 const isAllArrStrElemUniq = (arr) => {
   const arrLowerCase = arr.map((element) => element.toLowerCase());
@@ -57,69 +51,28 @@ const onDescriptionInput = (evt) => {
   evt.target.reportValidity();
 };
 
-const onModalEscPress = (evt, closeUploadSection) => {
-  if (isEscEvent(evt)) {
-    evt.preventDefault();
-    closeUploadSection();
-    document.addEventListener('keyup', onModalEscPress);
-  }
-};
-
-const closeUploadSuccessSection = () => {
-  document.body.removeChild(uploadSuccessElement);
-  document.removeEventListener('keyup', onModalEscPress(closeUploadSuccessSection));
-
-  uploadSuccessButton.removeEventListener('click', closeUploadSuccessSection);
-  successSection.removeEventListener('click', closeUploadSuccessSection);
-};
-
-const showUploadSuccessSection = () => {
-  document.body.appendChild(uploadSuccessElement);
-
-  uploadSuccessButton.addEventListener('click', closeUploadSuccessSection);
-
-  document.addEventListener('keyup', onModalEscPress(closeUploadSuccessSection));
-  successSection.addEventListener('click', closeUploadSuccessSection);
-};
-
-const closeUploadErrorSection = () => {
-  document.body.removeChild(uploadErrorElement);
-  document.removeEventListener('keyup', onModalEscPress(closeUploadErrorSection));
-
-  uploadErrorButton.removeEventListener('click', closeUploadErrorSection);
-  errorSection.removeEventListener('click', closeUploadErrorSection);
-};
-
-const showUploadErrorSection = () => {
-  document.body.appendChild(uploadErrorElement);
-
-  uploadErrorButton.addEventListener('click', closeUploadErrorSection);
-
-  document.addEventListener('keyup', onModalEscPress(closeUploadErrorSection));
-  errorSection.addEventListener('click', closeUploadErrorSection);
-};
-
 const setSubmitButtonState = (isBlocked) => {
   uploadSubmit.disabled = isBlocked;
   uploadSubmit.textContent = isBlocked ? 'Публикую...' : 'Опубликовать';
 };
 
-const onHandleSubmit = () => {
-  //evt.preventDefault();
+const onHandleSubmit = (evt) => {
+  evt.preventDefault();
   setSubmitButtonState(true);
-  const formData = new FormData(form);
+  const formData = new FormData(evt.target);
 
   sendData(
+    POST_URL,
     formData,
     () => {
       onModalCloseButtonClick();
       setSubmitButtonState(false);
-      showUploadSuccessSection();
+      showSuccessMessage();
     },
     () => {
       onModalCloseButtonClick();
       setSubmitButtonState(false);
-      showUploadErrorSection();
+      showErrorMessage();
     }
   );
 };
@@ -128,12 +81,15 @@ const setFormSubmit = () => {
   form.addEventListener('submit', onHandleSubmit);
 };
 
-onHandleSubmit();
+const unsetFormSubmit = () => {
+  form.removeEventListener('submit', onHandleSubmit);
+};
 
 export {
   hashtagsInput,
   descriptionInput,
   onHashtagInput,
   onDescriptionInput,
-  setFormSubmit
+  setFormSubmit,
+  unsetFormSubmit
 };

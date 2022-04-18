@@ -21,6 +21,8 @@ const CONTROL_DEFAULT_VALUE = 100;
 
 const EFFECT_CLASS_START = 'effects__preview--';
 
+const DOWNLOAD_ERROR_MESSAGE = 'Не удалось выполнить загрузку данных!';
+
 export {
   ALERT_SHOW_TIME,
   FILTER_CHANGE_DEBOUNCE_TIME,
@@ -36,5 +38,6 @@ export {
   CONTROL_MIN_VALUE,
   CONTROL_STEP,
   CONTROL_DEFAULT_VALUE,
-  EFFECT_CLASS_START
+  EFFECT_CLASS_START,
+  DOWNLOAD_ERROR_MESSAGE
 };
