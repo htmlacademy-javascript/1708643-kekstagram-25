@@ -36,10 +36,10 @@ const commentTemplateString = `
 
 templateElement.innerHTML = commentTemplateString;
 
-const templateComment = templateElement.content.querySelector('.social__comment');
+const templateCommentElement = templateElement.content.querySelector('.social__comment');
 
 const createComment = (comment) => {
-  const commentElement = templateComment.cloneNode(true);
+  const commentElement = templateCommentElement.cloneNode(true);
   commentElement.querySelector('.social__picture').src = comment.avatar;
   commentElement.querySelector('.social__picture').alt = comment.name;
   commentElement.querySelector('.social__text').innerText = comment.message;
@@ -102,8 +102,8 @@ const createPictureModalData = (data) => {
 };
 
 const removePhotoContent = () => {
-  const pictures = picturesWrapperElement.querySelectorAll('.picture');
-  pictures.forEach((picture) => {
+  const picturesElement = picturesWrapperElement.querySelectorAll('.picture');
+  picturesElement.forEach((picture) => {
     picture.remove();
   });
 };
