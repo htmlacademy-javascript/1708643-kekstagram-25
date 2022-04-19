@@ -55,7 +55,7 @@ const createComments = (currentData) => {
     .forEach((comment) => {
       fragment.appendChild(createComment(comment));
     });
-  bigPictureCommentsBlock.textContent = '';
+  bigPictureCommentsBlock.innerHTML = '';
   bigPictureCommentsBlock.appendChild(fragment);
 };
 
