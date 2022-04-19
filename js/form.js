@@ -5,7 +5,7 @@ import {onModalCloseButtonClick} from './preview.js';
 import {showErrorMessage, showSuccessMessage} from './message.js';
 import {POST_URL} from './const.js';
 
-const form = document.querySelector('.img-upload__form');
+const formElement = document.querySelector('.img-upload__form');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 
@@ -78,7 +78,7 @@ const onHandleSubmit = (evt) => {
 };
 
 const setFormSubmit = () => {
-  form.addEventListener('submit', onHandleSubmit);
+  formElement.addEventListener('submit', onHandleSubmit);
 };
 
 setFormSubmit();

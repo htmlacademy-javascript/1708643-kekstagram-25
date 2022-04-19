@@ -1,14 +1,14 @@
 import {isEscEvent} from './util.js';
 import {descriptionInput, hashtagsInput, onDescriptionInput, onHashtagInput} from './form.js';
-import {imgPreview, scaleValue, sliderBlockNone, lowerSizeImg, incrementSizeImg} from './effect.js';
+import {imgPreview, scaleValue, sliderBlockNoneElement, lowerSizeImg, incrementSizeImg} from './effect.js';
 import {CONTROL_MAX_VALUE, EFFECT_CLASS_START, CONTROL_DEFAULT_VALUE} from './const.js';
 
 const fileInput = document.querySelector('#upload-file');
-const imgUploadOverlay = document.querySelector('.img-upload__overlay');
-const body = document.body;
+const imgUploadOverlayElement = document.querySelector('.img-upload__overlay');
+const bodyElement = document.body;
 const modalCloseButton = document.querySelector('#upload-cancel');
 const hideClass = 'hidden';
-const form = document.querySelector('.img-upload__form');
+const formElement = document.querySelector('.img-upload__form');
 
 const scaleSmaller = document.querySelector('.scale__control--smaller');
 const scaleBigger = document.querySelector('.scale__control--bigger');
@@ -17,8 +17,8 @@ const effectNone = document.querySelector('#effect-none');
 const valueEffectLevel = document.querySelector('.effect-level__value');
 
 const closeUploadFileModal = () => {
-  imgUploadOverlay.classList.add(hideClass);
-  body.classList.remove('modal-open');
+  imgUploadOverlayElement.classList.add(hideClass);
+  bodyElement.classList.remove('modal-open');
 
   hashtagsInput.value = '';
   descriptionInput.value = '';
@@ -26,11 +26,11 @@ const closeUploadFileModal = () => {
   scaleValue.value = `${CONTROL_MAX_VALUE  }%`;
   imgPreview.style = '';
   imgPreview.style.filter = 'none';
-  sliderBlockNone.style.display = 'none';
+  sliderBlockNoneElement.style.display = 'none';
   imgPreview.classList.value = `${EFFECT_CLASS_START  }none`;
   effectNone.checked = true;
   valueEffectLevel.value = CONTROL_DEFAULT_VALUE;
-  form.reset();
+  formElement.reset();
 
   hashtagsInput.removeEventListener('input', onHashtagInput);
   descriptionInput.removeEventListener('input', onDescriptionInput);
@@ -56,8 +56,8 @@ const onUploadModalEscPress = (evt) => {
 };
 
 const onFileInputChange = () => {
-  imgUploadOverlay.classList.remove(hideClass);
-  body.classList.add('modal-open');
+  imgUploadOverlayElement.classList.remove(hideClass);
+  bodyElement.classList.add('modal-open');
 
   imgPreview.src = URL.createObjectURL(fileInput.files[0]);
 

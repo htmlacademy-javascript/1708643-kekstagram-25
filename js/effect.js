@@ -12,8 +12,8 @@ const scaleValue = document.querySelector('.scale__control--value');
 const effectInputs = document.querySelectorAll('input[name="effect"]');
 const sliderEffectLevel = document.querySelector('.effect-level__slider');
 const valueEffectLevel = document.querySelector('.effect-level__value');
-const sliderBlockNone = document.querySelector('.img-upload__effect-level');
-const listEffects = document.querySelector('.effects__list');
+const sliderBlockNoneElement = document.querySelector('.img-upload__effect-level');
+const listEffectsElement = document.querySelector('.effects__list');
 
 const lowerSizeImg = () => {
   const numberValue = getIntValue(scaleValue);
@@ -71,7 +71,7 @@ sliderEffectLevel.noUiSlider.on('update', () => {
   }
 });
 
-sliderBlockNone.style.display = 'none';
+sliderBlockNoneElement.style.display = 'none';
 
 const effectSliderSettings = {
   chrome: {
@@ -116,19 +116,19 @@ const effectSliderSettings = {
   }
 };
 
-listEffects.addEventListener('change', (evt) => {
+listEffectsElement.addEventListener('change', (evt) => {
   filterName = EFFECT_CLASS_START + evt.target.value;
   imgPreview.className = filterName;
 
-  sliderBlockNone.style.display = 'block';
+  sliderBlockNoneElement.style.display = 'block';
   sliderEffectLevel.removeAttribute('disabled');
 
   if (filterName === `${EFFECT_CLASS_START  }none`) {
-    sliderBlockNone.style.display = 'none';
+    sliderBlockNoneElement.style.display = 'none';
     imgPreview.style.filter = 'none';
   } else {
     sliderEffectLevel.noUiSlider.updateOptions(effectSliderSettings[evt.target.value]);
   }
 });
 
-export {imgPreview, scaleValue, sliderBlockNone, lowerSizeImg, incrementSizeImg};
+export {imgPreview, scaleValue, sliderBlockNoneElement, lowerSizeImg, incrementSizeImg};

@@ -1,5 +1,5 @@
 import {showModal} from './big-picture.js';
-import {createPicture, pictureContainer} from './picture.js';
+import {createPicture, pictureContainerElement} from './picture.js';
 
 const renderPictures = (photosData) => {
   const fragment = document.createDocumentFragment();
@@ -11,7 +11,7 @@ const renderPictures = (photosData) => {
     });
     fragment.appendChild(photoDataElement);
   });
-  pictureContainer.appendChild(fragment);
+  pictureContainerElement.appendChild(fragment);
 };
 
 export {renderPictures};
