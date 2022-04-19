@@ -15,21 +15,21 @@ const valueEffectLevel = document.querySelector('.effect-level__value');
 const sliderBlockNone = document.querySelector('.img-upload__effect-level');
 const listEffects = document.querySelector('.effects__list');
 
-function lowerSizeImg () {
+const lowerSizeImg = () => {
   const numberValue = getIntValue(scaleValue);
   if (getIntValue(scaleValue) > CONTROL_MIN_VALUE) {
     scaleValue.value = `${numberValue - CONTROL_STEP}%`;
     imgPreview.style = `transform: scale(${(numberValue - CONTROL_STEP) / 100})`;
   }
-}
+};
 
-function incrementSizeImg() {
+const incrementSizeImg = () => {
   const numberValue = getIntValue(scaleValue);
   if (getIntValue(scaleValue) < CONTROL_MAX_VALUE) {
     scaleValue.value = `${numberValue + CONTROL_STEP}%`;
     imgPreview.style = `transform: scale(${(numberValue + CONTROL_STEP) / 100})`;
   }
-}
+};
 
 effectInputs.forEach((effectInput) => {
   effectInput.addEventListener('change', (evt) => {
@@ -49,15 +49,8 @@ noUiSlider.create(sliderEffectLevel, {
   step: 1,
   connect: 'lower',
   format: {
-    to: function (value) {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
-    },
-    from: function (value) {
-      return parseFloat(value);
-    },
+    to: (value) => (Number.isInteger(value)) ? value.toFixed(0) : value.toFixed(1),
+    from: (value) => parseFloat(value),
   },
 });
 

@@ -34,7 +34,7 @@ const commentTemplateString = `
       width="35" height="35">
     <p class="social__text"></p>
   </li>`;
-template.innerHTML = commentTemplateString;
+template.textContent = commentTemplateString;
 const templateComment = template.content.querySelector('.social__comment');
 
 const createComment = (comment) => {
@@ -55,7 +55,7 @@ const createComments = (currentData) => {
     .forEach((comment) => {
       fragment.appendChild(createComment(comment));
     });
-  bigPictureCommentsBlock.innerHTML = '';
+  bigPictureCommentsBlock.textContent = '';
   bigPictureCommentsBlock.appendChild(fragment);
 };
 
