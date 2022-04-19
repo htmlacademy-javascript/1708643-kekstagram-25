@@ -39,11 +39,11 @@ templateElement.innerHTML = commentTemplateString;
 const templateComment = templateElement.content.querySelector('.social__comment');
 
 const createComment = (comment) => {
-  const element = templateComment.cloneNode(true);
-  element.querySelector('.social__picture').src = comment.avatar;
-  element.querySelector('.social__picture').alt = comment.name;
-  element.querySelector('.social__text').innerText = comment.message;
-  return element;
+  const commentElement = templateComment.cloneNode(true);
+  commentElement.querySelector('.social__picture').src = comment.avatar;
+  commentElement.querySelector('.social__picture').alt = comment.name;
+  commentElement.querySelector('.social__text').innerText = comment.message;
+  return commentElement;
 };
 
 let photoShowStep = 1;
