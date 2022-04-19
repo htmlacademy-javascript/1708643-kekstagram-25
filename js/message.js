@@ -7,9 +7,10 @@ const errorMessageTemplateElement = errorMessageTemplateBlockElement.content.que
 const mainElement = document.querySelector('main');
 
 const closeSuccessMessage = () => {
-  const successMessage = document.querySelector('.success');
-  console.log(successMessage);
-  successMessage.remove();
+  const successMessageElement = document.querySelector('.success');
+  if (successMessageElement) {
+    successMessageElement.remove();
+  }
 };
 
 const onSuccessMessageEscPress = (evt) => {
@@ -20,26 +21,24 @@ const onSuccessMessageEscPress = (evt) => {
 };
 
 const onSuccessMessageOverlayClick = (evt) => {
-  const successMessage = document.querySelector('.success');
-  console.log(successMessage);
-  if (evt.target === successMessage) {
+  const successMessageElement = document.querySelector('.success');
+  if (evt.target === successMessageElement) {
     closeSuccessMessage();
   }
 };
 
 const showSuccessMessage = () => {
-  const successMessage = successMessageTemplateElement.cloneNode(true);
-  console.log(successMessage);
-  mainElement.appendChild(successMessage);
+  const successMessageElement = successMessageTemplateElement.cloneNode(true);
+  mainElement.appendChild(successMessageElement);
   const successButtonElement = document.querySelector('.success__button');
   successButtonElement.addEventListener('click', closeSuccessMessage);
-  successMessage.addEventListener('click', onSuccessMessageOverlayClick);
+  successMessageElement.addEventListener('click', onSuccessMessageOverlayClick);
   document.addEventListener('keydown', onSuccessMessageEscPress);
 };
 
 const closeErrorMessage = () => {
-  const errorMessage = document.querySelector('.error');
-  errorMessage.remove();
+  const errorMessageElement = document.querySelector('.error');
+  errorMessageElement.remove();
 };
 
 const onErrorMessageEscPress = (evt) => {
@@ -49,18 +48,18 @@ const onErrorMessageEscPress = (evt) => {
   }
 };
 const onErrorMessageOverlayClick = (evt) => {
-  const errorMessage = document.querySelector('.error');
-  if (evt.target === errorMessage) {
+  const errorMessageElement = document.querySelector('.error');
+  if (evt.target === errorMessageElement) {
     closeErrorMessage();
   }
 };
 
 const showErrorMessage = () => {
-  const errorMessage = errorMessageTemplateElement.cloneNode(true);
-  mainElement.appendChild(errorMessage);
+  const errorMessageElement = errorMessageTemplateElement.cloneNode(true);
+  mainElement.appendChild(errorMessageElement);
   const errorButtonElement = document.querySelector('.error__button');
   errorButtonElement.addEventListener('click', closeErrorMessage);
-  errorMessage.addEventListener('click', onErrorMessageOverlayClick);
+  errorMessageElement.addEventListener('click', onErrorMessageOverlayClick);
   document.addEventListener('keydown', onErrorMessageEscPress);
 };
 
