@@ -34,7 +34,7 @@ const commentTemplateString = `
     <p class="social__text"></p>
   </li>`;
 
-templateElement.innerHTML = commentTemplateString;
+templateElement.textContent = commentTemplateString;
 
 const templateCommentElement = templateElement.content.querySelector('.social__comment');
 
