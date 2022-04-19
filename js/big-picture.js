@@ -7,11 +7,11 @@ import {renderPictures} from './gallery.js';
 const fragment = document.createDocumentFragment();
 const picturesWrapperElement = document.querySelector('.pictures');
 const bigPictureBlockElement = document.querySelector('.big-picture');
-const bigPictureImage = bigPictureBlockElement.querySelector('.big-picture__img img');
-const bigPictureLikes = bigPictureBlockElement.querySelector('.likes-count');
-const bigPictureCommentsCount = bigPictureBlockElement.querySelector('.comments-count');
-const bigPictureCommentsBlock = bigPictureBlockElement.querySelector('.social__comments');
-const bigPictureDescription = bigPictureBlockElement.querySelector('.social__caption');
+const bigPictureImageElement = bigPictureBlockElement.querySelector('.big-picture__img img');
+const bigPictureLikesElement = bigPictureBlockElement.querySelector('.likes-count');
+const bigPictureCommentsCountElement = bigPictureBlockElement.querySelector('.comments-count');
+const bigPictureCommentsBlockElement = bigPictureBlockElement.querySelector('.social__comments');
+const bigPictureDescriptionElement = bigPictureBlockElement.querySelector('.social__caption');
 const bigPictureCommentsLoader = bigPictureBlockElement.querySelector('.comments-loader');
 const bigPictureCommentsShowCount = bigPictureBlockElement.querySelector('.comments-show-count');
 const bigPictureSocialCommentsCount = bigPictureBlockElement.querySelector('.social__comment-count');
@@ -50,14 +50,14 @@ let photoShowStep = 1;
 let currentComments = [];
 
 const createComments = (currentData) => {
-  bigPictureCommentsCount.textContent = currentData.length;
+  bigPictureCommentsCountElement.textContent = currentData.length;
   currentData
     .slice(0, photoShowStep * COMMENTS_TO_SHOW_COUNT)
     .forEach((comment) => {
       fragment.appendChild(createComment(comment));
     });
-  bigPictureCommentsBlock.innerHTML = '';
-  bigPictureCommentsBlock.appendChild(fragment);
+  bigPictureCommentsBlockElement.innerHTML = '';
+  bigPictureCommentsBlockElement.appendChild(fragment);
 };
 
 const onCommentShowMore = () => {
@@ -95,9 +95,9 @@ const onPictureModalEscPress = (evt) => {
 };
 
 const createPictureModalData = (data) => {
-  bigPictureImage.src = data.url;
-  bigPictureLikes.textContent = data.likes;
-  bigPictureDescription.textContent = data.description;
+  bigPictureImageElement.src = data.url;
+  bigPictureLikesElement.textContent = data.likes;
+  bigPictureDescriptionElement.textContent = data.description;
   createComments(data.comments);
 };
 
