@@ -6,10 +6,10 @@ import {showErrorMessage, showSuccessMessage} from './message.js';
 import {POST_URL} from './const.js';
 
 const formElement = document.querySelector('.img-upload__form');
-const hashtagsInput = document.querySelector('.text__hashtags');
-const descriptionInput = document.querySelector('.text__description');
+const hashtagsInputElement = document.querySelector('.text__hashtags');
+const descriptionInputElement = document.querySelector('.text__description');
 
-const uploadSubmit = document.querySelector('.img-upload__submit');
+const uploadSubmitElement = document.querySelector('.img-upload__submit');
 
 const isAllArrStrElemUniq = (arr) => {
   const arrLowerCase = arr.map((element) => element.toLowerCase());
@@ -52,8 +52,8 @@ const onDescriptionInput = (evt) => {
 };
 
 const setSubmitButtonState = (isBlocked) => {
-  uploadSubmit.disabled = isBlocked;
-  uploadSubmit.textContent = isBlocked ? 'Публикую...' : 'Опубликовать';
+  uploadSubmitElement.disabled = isBlocked;
+  uploadSubmitElement.textContent = isBlocked ? 'Публикую...' : 'Опубликовать';
 };
 
 const onHandleSubmit = (evt) => {
@@ -84,8 +84,8 @@ const setFormSubmit = () => {
 setFormSubmit();
 
 export {
-  hashtagsInput,
-  descriptionInput,
+  hashtagsInputElement,
+  descriptionInputElement,
   onHashtagInput,
   onDescriptionInput
 };

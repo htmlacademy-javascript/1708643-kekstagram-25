@@ -1,6 +1,6 @@
 import {isEscEvent} from './util.js';
-import {descriptionInput, hashtagsInput, onDescriptionInput, onHashtagInput} from './form.js';
-import {imgPreview, scaleValue, sliderBlockNoneElement, lowerSizeImg, incrementSizeImg} from './effect.js';
+import {descriptionInputElement, hashtagsInputElement, onDescriptionInput, onHashtagInput} from './form.js';
+import {imgPreviewElement, scaleValueElement, sliderBlockNoneElement, lowerSizeImg, incrementSizeImg} from './effect.js';
 import {CONTROL_MAX_VALUE, EFFECT_CLASS_START, CONTROL_DEFAULT_VALUE} from './const.js';
 
 const fileInputElement = document.querySelector('#upload-file');
@@ -20,20 +20,20 @@ const closeUploadFileModal = () => {
   imgUploadOverlayElement.classList.add(hideClass);
   bodyElement.classList.remove('modal-open');
 
-  hashtagsInput.value = '';
-  descriptionInput.value = '';
+  hashtagsInputElement.value = '';
+  descriptionInputElement.value = '';
 
-  scaleValue.value = `${CONTROL_MAX_VALUE  }%`;
-  imgPreview.style = '';
-  imgPreview.style.filter = 'none';
+  scaleValueElement.value = `${CONTROL_MAX_VALUE  }%`;
+  imgPreviewElement.style = '';
+  imgPreviewElement.style.filter = 'none';
   sliderBlockNoneElement.style.display = 'none';
-  imgPreview.classList.value = `${EFFECT_CLASS_START  }none`;
+  imgPreviewElement.classList.value = `${EFFECT_CLASS_START  }none`;
   effectNoneElement.checked = true;
   valueEffectLevelElement.value = CONTROL_DEFAULT_VALUE;
   formElement.reset();
 
-  hashtagsInput.removeEventListener('input', onHashtagInput);
-  descriptionInput.removeEventListener('input', onDescriptionInput);
+  hashtagsInputElement.removeEventListener('input', onHashtagInput);
+  descriptionInputElement.removeEventListener('input', onDescriptionInput);
   scaleSmallerElement.removeEventListener('click', lowerSizeImg);
   scaleBiggerElement.removeEventListener('click', incrementSizeImg);
 };
@@ -45,8 +45,8 @@ const onModalCloseButtonClick = () => {
 
 const onUploadModalEscPress = (evt) => {
   if (isEscEvent(evt)) {
-    const isHashtagsInputNotFocus = hashtagsInput !== document.activeElement;
-    const isDescriptionInputNotFocus = descriptionInput !== document.activeElement;
+    const isHashtagsInputNotFocus = hashtagsInputElement !== document.activeElement;
+    const isDescriptionInputNotFocus = descriptionInputElement !== document.activeElement;
     evt.preventDefault();
     if (isHashtagsInputNotFocus && isDescriptionInputNotFocus) {
       closeUploadFileModal();
@@ -59,10 +59,10 @@ const onFileInputChange = () => {
   imgUploadOverlayElement.classList.remove(hideClass);
   bodyElement.classList.add('modal-open');
 
-  imgPreview.src = URL.createObjectURL(fileInputElement.files[0]);
+  imgPreviewElement.src = URL.createObjectURL(fileInputElement.files[0]);
 
-  hashtagsInput.addEventListener('input', onHashtagInput);
-  descriptionInput.addEventListener('input', onDescriptionInput);
+  hashtagsInputElement.addEventListener('input', onHashtagInput);
+  descriptionInputElement.addEventListener('input', onDescriptionInput);
 
   scaleSmallerElement.addEventListener('click', lowerSizeImg);
   scaleBiggerElement.addEventListener('click', incrementSizeImg);

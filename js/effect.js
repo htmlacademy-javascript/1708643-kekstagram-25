@@ -7,40 +7,40 @@ import {
   EFFECT_CLASS_START
 } from './const.js';
 
-const imgPreview = document.querySelector('.img-upload__preview img');
-const scaleValue = document.querySelector('.scale__control--value');
-const effectInputs = document.querySelectorAll('input[name="effect"]');
-const sliderEffectLevel = document.querySelector('.effect-level__slider');
-const valueEffectLevel = document.querySelector('.effect-level__value');
+const imgPreviewElement = document.querySelector('.img-upload__preview img');
+const scaleValueElement = document.querySelector('.scale__control--value');
+const effectInputsElement = document.querySelectorAll('input[name="effect"]');
+const sliderEffectLevelElement = document.querySelector('.effect-level__slider');
+const valueEffectLevelElement = document.querySelector('.effect-level__value');
 const sliderBlockNoneElement = document.querySelector('.img-upload__effect-level');
 const listEffectsElement = document.querySelector('.effects__list');
 
 const lowerSizeImg = () => {
-  const numberValue = getIntValue(scaleValue);
-  if (getIntValue(scaleValue) > CONTROL_MIN_VALUE) {
-    scaleValue.value = `${numberValue - CONTROL_STEP}%`;
-    imgPreview.style = `transform: scale(${(numberValue - CONTROL_STEP) / 100})`;
+  const numberValue = getIntValue(scaleValueElement);
+  if (getIntValue(scaleValueElement) > CONTROL_MIN_VALUE) {
+    scaleValueElement.value = `${numberValue - CONTROL_STEP}%`;
+    imgPreviewElement.style = `transform: scale(${(numberValue - CONTROL_STEP) / 100})`;
   }
 };
 
 const incrementSizeImg = () => {
-  const numberValue = getIntValue(scaleValue);
-  if (getIntValue(scaleValue) < CONTROL_MAX_VALUE) {
-    scaleValue.value = `${numberValue + CONTROL_STEP}%`;
-    imgPreview.style = `transform: scale(${(numberValue + CONTROL_STEP) / 100})`;
+  const numberValue = getIntValue(scaleValueElement);
+  if (getIntValue(scaleValueElement) < CONTROL_MAX_VALUE) {
+    scaleValueElement.value = `${numberValue + CONTROL_STEP}%`;
+    imgPreviewElement.style = `transform: scale(${(numberValue + CONTROL_STEP) / 100})`;
   }
 };
 
-effectInputs.forEach((effectInput) => {
+effectInputsElement.forEach((effectInput) => {
   effectInput.addEventListener('change', (evt) => {
-    imgPreview.classList.remove(...imgPreview.classList);
-    imgPreview.classList.add(EFFECT_CLASS_START + evt.target.value);
+    imgPreviewElement.classList.remove(...imgPreviewElement.classList);
+    imgPreviewElement.classList.add(EFFECT_CLASS_START + evt.target.value);
   });
 });
 
-valueEffectLevel.value = CONTROL_DEFAULT_VALUE;
+valueEffectLevelElement.value = CONTROL_DEFAULT_VALUE;
 
-noUiSlider.create(sliderEffectLevel, {
+noUiSlider.create(sliderEffectLevelElement, {
   range: {
     min: 0,
     max: 100,
@@ -56,18 +56,18 @@ noUiSlider.create(sliderEffectLevel, {
 
 let filterName = `${EFFECT_CLASS_START  }none`;
 
-sliderEffectLevel.noUiSlider.on('update', () => {
-  valueEffectLevel.value = sliderEffectLevel.noUiSlider.get();
+sliderEffectLevelElement.noUiSlider.on('update', () => {
+  valueEffectLevelElement.value = sliderEffectLevelElement.noUiSlider.get();
   if (filterName === `${EFFECT_CLASS_START  }chrome`) {
-    imgPreview.style.filter = `grayscale(${valueEffectLevel.value})`;
+    imgPreviewElement.style.filter = `grayscale(${valueEffectLevelElement.value})`;
   } else if (filterName === `${EFFECT_CLASS_START  }sepia`) {
-    imgPreview.style.filter = `sepia(${valueEffectLevel.value})`;
+    imgPreviewElement.style.filter = `sepia(${valueEffectLevelElement.value})`;
   } else if (filterName === `${EFFECT_CLASS_START  }marvin`) {
-    imgPreview.style.filter = `invert(${valueEffectLevel.value}%)`;
+    imgPreviewElement.style.filter = `invert(${valueEffectLevelElement.value}%)`;
   } else if (filterName === `${EFFECT_CLASS_START  }phobos`) {
-    imgPreview.style.filter = `blur(${valueEffectLevel.value}px)`;
+    imgPreviewElement.style.filter = `blur(${valueEffectLevelElement.value}px)`;
   } else if (filterName === `${EFFECT_CLASS_START  }heat`) {
-    imgPreview.style.filter = `brightness(${valueEffectLevel.value})`;
+    imgPreviewElement.style.filter = `brightness(${valueEffectLevelElement.value})`;
   }
 });
 
@@ -118,17 +118,17 @@ const effectSliderSettings = {
 
 listEffectsElement.addEventListener('change', (evt) => {
   filterName = EFFECT_CLASS_START + evt.target.value;
-  imgPreview.className = filterName;
+  imgPreviewElement.className = filterName;
 
   sliderBlockNoneElement.style.display = 'block';
-  sliderEffectLevel.removeAttribute('disabled');
+  sliderEffectLevelElement.removeAttribute('disabled');
 
   if (filterName === `${EFFECT_CLASS_START  }none`) {
     sliderBlockNoneElement.style.display = 'none';
-    imgPreview.style.filter = 'none';
+    imgPreviewElement.style.filter = 'none';
   } else {
-    sliderEffectLevel.noUiSlider.updateOptions(effectSliderSettings[evt.target.value]);
+    sliderEffectLevelElement.noUiSlider.updateOptions(effectSliderSettings[evt.target.value]);
   }
 });
 
-export {imgPreview, scaleValue, sliderBlockNoneElement, lowerSizeImg, incrementSizeImg};
+export {imgPreviewElement, scaleValueElement, sliderBlockNoneElement, lowerSizeImg, incrementSizeImg};

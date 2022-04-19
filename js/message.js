@@ -8,6 +8,7 @@ const mainElement = document.querySelector('main');
 
 const closeSuccessMessage = () => {
   const successMessage = document.querySelector('.success');
+  console.log(successMessage);
   successMessage.remove();
 };
 
@@ -20,6 +21,7 @@ const onSuccessMessageEscPress = (evt) => {
 
 const onSuccessMessageOverlayClick = (evt) => {
   const successMessage = document.querySelector('.success');
+  console.log(successMessage);
   if (evt.target === successMessage) {
     closeSuccessMessage();
   }
@@ -27,6 +29,7 @@ const onSuccessMessageOverlayClick = (evt) => {
 
 const showSuccessMessage = () => {
   const successMessage = successMessageTemplateElement.cloneNode(true);
+  console.log(successMessage);
   mainElement.appendChild(successMessage);
   const successButtonElement = document.querySelector('.success__button');
   successButtonElement.addEventListener('click', closeSuccessMessage);
