@@ -1,14 +1,14 @@
-const pictureContainer = document.querySelector('.pictures');
-const pictureTemplateBlock = document.querySelector('#picture');
-const pictureTemplate = pictureTemplateBlock.content.querySelector('a.picture');
+const pictureContainerElement = document.querySelector('.pictures');
+const pictureTemplateBlockElement = document.querySelector('#picture');
+const pictureTemplateElement = pictureTemplateBlockElement.content.querySelector('a.picture');
 
 const createPicture = (photoData) => {
-  const picture = pictureTemplate.cloneNode(true);
-  picture.querySelector('.picture__img').src = photoData.url;
-  picture.querySelector('.picture__comments').innerText = photoData.comments.length;
-  picture.querySelector('.picture__likes').innerText = photoData.likes;
-  picture.dataset.photoId = photoData.id;
-  return picture;
+  const pictureElement = pictureTemplateElement.cloneNode(true);
+  pictureElement.querySelector('.picture__img').src = photoData.url;
+  pictureElement.querySelector('.picture__comments').innerText = photoData.comments.length;
+  pictureElement.querySelector('.picture__likes').innerText = photoData.likes;
+  pictureElement.dataset.photoId = photoData.id;
+  return pictureElement;
 };
 
-export {pictureContainer, createPicture};
+export {pictureContainerElement, createPicture};
